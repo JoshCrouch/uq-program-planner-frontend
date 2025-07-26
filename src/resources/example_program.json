@@ -1,0 +1,273 @@
+{
+  "name" : "Bachelor of Engineering (Honours) / Master of Engineering in Electrical and Computer Engineering",
+  "code" : "ELECEX2350",
+  "year" : 2023,
+  "units": 80,
+  "components" : [
+    {
+      "id" : "core",
+      "type" : "section",
+      "title" : "Core Courses",
+      "minUnits" : 8,
+      "maxUnits" : 8,
+      "courseEntries" : [
+        {
+          "type" : "singular",
+          "code" : "ENGG1100"
+        },
+        {
+          "type" : "option",
+          "optionOne" : "MATH1051",
+          "optionTwo" : "MATH1071"
+        },
+        {
+          "type" : "option",
+          "optionOne" : "MATH1052",
+          "optionTwo" : "MATH1072"
+        },
+        {
+          "type" : "option",
+          "optionOne" : "ENGG1001",
+          "optionTwo" : "CSSE1001"
+        }
+      ]
+    },
+    {
+      "id": "fieldOfStudy",
+      "type": "category",
+      "title": "Electrical and Computer Engineering Field of Study",
+      "minUnits": 66,
+      "maxUnits": 66,
+      "sections": [
+        {
+          "id": "fieldOfStudy-compulsory",
+          "type": "section",
+          "title": "Compulsory Courses",
+          "minUnits": 50,
+          "maxUnits": 50,
+          "courseEntries": [
+            {
+              "type": "singular",
+              "code": "ENGG1300"
+            },
+            {
+              "type": "singular",
+              "code": "CSSE2002"
+            },
+            {
+              "type": "singular",
+              "code": "CSSE2010"
+            },
+            {
+              "type": "singular",
+              "code": "CSSE2310"
+            },
+            {
+              "type": "singular",
+              "code": "ELEC2004"
+            },
+            {
+              "type": "singular",
+              "code": "ELEC2300"
+            },
+            {
+              "type": "singular",
+              "code": "ELEC2400"
+            },
+            {
+              "type": "singular",
+              "code": "ENGG2800"
+            },
+            {
+              "type": "singular",
+              "code": "MATH2001"
+            },
+            {
+              "type": "singular",
+              "code": "MATH2010"
+            },
+            {
+              "type": "singular",
+              "code": "STAT2201"
+            },
+            {
+              "type": "singular",
+              "code": "COMP3506"
+            },
+            {
+              "type": "singular",
+              "code": "CSSE3010"
+            },
+            {
+              "type": "singular",
+              "code": "ELEC3004"
+            },
+            {
+              "type": "singular",
+              "code": "ELEC3100"
+            },
+            {
+              "type": "singular",
+              "code": "ENGG3800"
+            },
+            {
+              "type": "singular",
+              "code": "CSSE4010"
+            },
+            {
+              "type": "singular",
+              "code": "CSSE4011"
+            },
+            {
+              "type": "singular",
+              "code": "ENGG4900"
+            },
+            {
+              "type": "singular",
+              "code": "METR4201"
+            },
+            {
+              "type": "singular",
+              "code": "CSSE7610"
+            },
+            {
+              "type": "singular",
+              "code": "ENGG7921"
+            },
+            {
+              "type": "singular",
+              "code": "ENGG7701"
+            }
+          ]
+        },
+        {
+          "id": "fieldOfStudy-electives",
+          "type": "section",
+          "title": "Electives",
+          "minUnits": 4,
+          "maxUnits": 12,
+          "courseEntries": [
+            {
+              "type": "singular",
+              "code": "COMP4403"
+            },
+            {
+              "type": "singular",
+              "code": "COMP4500"
+            },
+            {
+              "type": "singular",
+              "code": "COMP4702"
+            },
+            {
+              "type": "singular",
+              "code": "COMS4104"
+            }
+          ]
+        },
+        {
+          "id": "fieldOfStudy-breadthElectives",
+          "type": "section",
+          "title": "Breadth Electives",
+          "minUnits": 0,
+          "maxUnits": 8,
+          "courseEntries": [
+            {
+              "type": "singular",
+              "code": "COMP2140"
+            },
+            {
+              "type": "singular",
+              "code": "COMP3301"
+            },
+            {
+              "type": "singular",
+              "code": "COMP3702"
+            },
+            {
+              "type": "singular",
+              "code": "COMP3710"
+            }
+          ]
+        },
+        {
+          "id": "fieldOfStudy-mastersElectives",
+          "type": "section",
+          "title": "Masters Electives",
+          "minUnits": 4,
+          "maxUnits": 12,
+          "courseEntries": [
+            {
+              "type": "singular",
+              "code": "BIOE6901"
+            },
+            {
+              "type": "singular",
+              "code": "BIOE7902"
+            },
+            {
+              "type": "singular",
+              "code": "COMS7305"
+            },
+            {
+              "type": "singular",
+              "code": "COMS7309"
+            },
+            {
+              "type": "singular",
+              "code": "ENGG7302"
+            },
+            {
+              "type": "singular",
+              "code": "ENGG7811"
+            },
+            {
+              "type": "singular",
+              "code": "INFS7410"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "preparatoryScienceAndMathematics",
+      "type": "section",
+      "title": "Preparatory Science and Mathematics",
+      "minUnits": 0,
+      "maxUnits": 4,
+      "courseEntries": [
+        { "type": "singular", "code": "CHEM1090" },
+        { "type": "singular", "code": "PHYS1171" },
+        { "type": "singular", "code": "MATH1050" }
+      ]
+    },
+    {
+      "id": "firstYearElectives",
+      "type": "section",
+      "title": "First Year Electives",
+      "minUnits": 0,
+      "maxUnits": 4,
+      "courseEntries": [
+        { "type": "singular", "code": "BIOE1001" },
+        { "type": "singular", "code": "BIOL1040" },
+        { "type": "singular", "code": "CHEM1100" },
+        { "type": "singular", "code": "DSGN1500" },
+        { "type": "singular", "code": "ERTH1051" }
+      ]
+    },
+    {
+      "id": "programElectives",
+      "type": "programElectives",
+      "title": "Program Electives",
+      "minUnits": 0,
+      "maxUnits": 6
+    },
+    {
+      "id": "generalElectives",
+      "type": "generalElectives",
+      "title": "General Electives",
+      "minUnits": 0,
+      "maxUnits": 6
+    }
+  ]
+}

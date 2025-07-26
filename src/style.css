@@ -1,29 +1,134 @@
 /* UQ Program Planner - Global Styles */
 :root {
+  --uq-primary-color: #51247A;    /* UQ purple */
+
+  /* Dark mode colors */
+  --dark-primary-text-color: #E0E0E0;  /* Light text for dark mode */
+  --dark-secondary-text-color: #A0A0A0;/* Secondary text */
+
+  --dark-primary-bg-color: #121212;    /* Dark background */
+  --dark-surface-color: #1E1E1E;       /* Surfaces and cards */
+  --dark-surface-light-color: #262626; /* Lighter surfaces */
+  --dark-surface-light-color-alt: #2E2E2E; /* Even lighter for deepest nesting */
+
+  /* Light mode colors */
+  --light-primary-text-color: #212121; /* Dark text for light mode */
+  --light-secondary-text-color: #757575; /* Secondary text */
+  
+  --light-primary-bg-color: #FFFFFF;   /* Light background */
+  --light-surface-color: #F5F5F5;      /* Surfaces */
+  --light-surface-light-color: #EEEEEE; /* Lighter surfaces */
+  --light-surface-light-color-alt: #E0E0E0; /* Even lighter for deepest nesting */
+
+  --error-color: #dc3545;         /* Error indication */
+  --error-dark-color: #b02a37;    /* Darker error color for contrast */
+  --error-light-color: #FFCDD2;   /* Light error background */
+
+  /* Aliases for components */
+  --primary-color: var(--uq-primary-color);
+  --primary-color-hover: #6A1B9A; /* Darker shade for hover effects */
+  --text-color: var(--primary-text-color);
+
+  --biggest-font-size: 2rem; /* Largest font size for headings */
+  --bigger-font-size: 1.5rem; /* Larger font size for emphasis */
+  --big-font-size: 1.2rem; /* Larger font size for emphasis */
+  --medium-font-size: 1rem; /* Medium font size for readability */
+  --small-font-size: 0.75rem; /* Smaller font size for less emphasis */
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #2c3e50;
-  background-color: #ffffff;
+  color: var(--primary-text-color);
+  background-color: var(--primary-bg-color);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
+/* Theming options */
+:root.light-theme {
+  --primary-text-color: var(--light-primary-text-color);
+  --secondary-text-color: var(--light-secondary-text-color);
+  --primary-bg-color: var(--light-primary-bg-color);
+  --surface-color: var(--light-surface-color);
+  --surface-light-color: var(--light-surface-light-color);
+  --surface-light-color-alt: var(--light-surface-light-color-alt);
+
+  --opposite-primary-text-color: var(--dark-primary-text-color);
+  --opposite-secondary-text-color: var(--dark-secondary-text-color);
+  --opposite-primary-bg-color: var(--dark-primary-bg-color);
+  --opposite-surface-color: var(--dark-surface-color);
+  --opposite-surface-light-color: var(--dark-surface-light-color);
+  --opposite-surface-light-color-alt: var(--dark-surface-light-color-alt);
+}
+
+:root.dark-theme {
+  --primary-text-color: var(--dark-primary-text-color);
+  --secondary-text-color: var(--dark-secondary-text-color);
+  --primary-bg-color: var(--dark-primary-bg-color);
+  --surface-color: var(--dark-surface-color);
+  --surface-light-color: var(--dark-surface-light-color);
+  --surface-light-color-alt: var(--dark-surface-light-color-alt);
+
+  --opposite-primary-text-color: var(--light-primary-text-color);
+  --opposite-secondary-text-color: var(--light-secondary-text-color);
+  --opposite-primary-bg-color: var(--light-primary-bg-color);
+  --opposite-surface-color: var(--light-surface-color);
+  --opposite-surface-light-color: var(--light-surface-light-color);
+  --opposite-surface-light-color-alt: var(--light-surface-light-color-alt);
+} 
+
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body {
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background-color: var(--surface-color);
 }
 
-#app {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+*, *::before, *::after {
+  --colour-transition-time: 0.3s; /* Default transition time for colors */
+  /* Define --color-transitions */
+  --color-transitions: background-color var(--colour-transition-time) ease-in-out, color var(--colour-transition-time) ease-in-out;
+  transition: var(--color-transitions);
+
+  --p-menu-background: var(--surface-color); /* Default background for PrimeVue menu overlay */
+  --p-menu-border-color: var(--primary-color);
+  --p-menu-item-color: var(--primary-text-color);
+  --p-menu-item-focus-background: var(--surface-light-color-alt);
+  --p-menu-item-focus-color: var(--primary-text-color);
+  --p-menu-item-icon-color: var(--primary-text-color);
+  --p-menu-item-icon-focus-color: var(--primary-text-color);
 }
+
+.p-menu-overlay {
+  background: white;
+}/* Smooth transitions for theme changes */
+
+/*
+Example for the order of CSS rules:
+
+identifier {
+  Variable definitions
+
+  Display type properties:
+    - display
+    - padding
+    - margin
+    - width
+    - height
+    - alignment
+
+  Styling properties:
+    - color
+    - background-color
+    - border
+  
+  Transitions
+
+  Nested Selector {
+    - Same order as above
+  }
+}
+*/

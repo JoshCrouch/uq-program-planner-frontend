@@ -1,67 +1,31 @@
 <script setup lang="ts">
 // UQ Program Planner Frontend
-import CourseCard from './components/CourseCard.vue'
+import Header from './components/shared/Header.vue';
+import ProgramCreator from './pages/ProgramCreator.vue';
 
-// Sample course data
-const sampleCourses = [
-  "CSSE1001",
-  "CSSE2002",
-  "ELEC2300",
-  "CSSE3010"
-]
 </script>
 
 <template>
   <div id="app">
-    <h1>UQ Program Planner</h1>
-    <p>Welcome to the UQ Program Planner!</p>
-    
-    <div class="course-grid">
-      <CourseCard 
-        v-for="course in sampleCourses" 
-        :key = "course"
-        :courseCode="course"
-      />
+    <Header />
+    <div id="content">
+      <ProgramCreator />
     </div>
   </div>
 </template>
 
 <style scoped>
+
 #app {
-  min-height: 100vh;
-  padding: 2rem;
+  background-color: var(--surface-color);
+}
+
+#content {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--surface-color);
+  color: var(--primary-text-color);
+  border-radius: 0.5rem;
 }
-
-h1 {
-  color: #2c3e50;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-p {
-  color: #7f8c8d;
-  font-size: 1.1rem;
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.course-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-@media (max-width: 768px) {
-  .course-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  #app {
-    padding: 1rem;
-  }
-}
-</style>00
+</style>

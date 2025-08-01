@@ -15,6 +15,14 @@ export class Program {
         this.components = components;
     }
 
+    public hasProgramElectiveComponent(): boolean {
+        return this.components.some(component => component.getType() === 'programElectives');
+    }
+
+    public hasGeneralElectiveComponent(): boolean {
+        return this.components.some(component => component.getType() === 'generalElectives');
+    }
+
     /* ---- Getters and Setters ---- */
     /**
      * Get the name of the program.

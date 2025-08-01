@@ -1,52 +1,73 @@
 <script setup lang="ts">
-/* Vue imports */
-import { ref } from 'vue';
-
 /* PrimeVue imports */
-import MeterGroup, { type MeterItem } from 'primevue/metergroup';
-import { useToast } from 'primevue';
+import InputText from "primevue/inputtext";
+import FloatLabel from "primevue/floatlabel";
 
 /* View imports */
 import SectionView from "./SectionView.vue";
-import AddComponent from '../../shared/AddComponent.vue';
-import EditMenu from '../../shared/EditMenu.vue'
+import AddButton from '../../ProgramBuiderVIews/AddButton.vue';
+import EditButton from '../../ProgramBuiderVIews/EditButton.vue'
+import EditDialog from "../../ProgramBuiderVIews/EditDialog.vue";
 
-/* Logic imports */
-import {Category} from "../../../consumables/ProgramClasses/ProgramComponents/Category.ts";
+/* Logic import */
+import { Category } from '../../../consumables/ProgramClasses/ProgramComponents/Category';
+import { useCategoryViewLogic } from "../../../consumables/ViewComponentLogic/ProgramViewLogic/ComponentViewLogic/CategoryViewLogic.ts";
+import AddSectionDialog from "../../ProgramBuiderVIews/AddDialogs/AddSectionDialog.vue";
 
-/* Props */
+/* ----- Props ----- */
 const { model, deleteCallback } = defineProps<{
   model: Category;
-  deleteCallback: () => void
+  deleteCallback: () => void;
 }>();
 
-/* Toast for notifications */
-const toast = useToast();
+const {
+  // State variables
+  isCollapsed,
+  editDialogVisible,
+  categoryDialog,
+  addSectionDialogVisible,
 
-/* Collapse logic */
-const isCollapsed = ref(false);
-function toggleCollapse() {
-  isCollapsed.value = !isCollapsed.value;
-}
-
-function sectionDeleteCallback(sectionId: string) {
-  toast.add({
-    severity: 'success',
-    summary: 'Section Deleted',
-    detail: `${model.getSectionById(sectionId)?.getTitle()} has been deleted.` ,
-    life: 3000
-  });
-  model.removeSectionById(sectionId);
-}
-
-function editCallback() {
-  // Handle edit logic here
-  console.log('Edit callback triggered');
-}
-
+  // Methods
+  sectionDeleteCallback,
+  openEditDialog,
+  onDialogClose,
+  onDialogSave,
+  onAddButtonClick,
+  closeAddSectionDialog
+} = useCategoryViewLogic(model);
 </script>
 
 <template>
+    <!-- Dialog for editing section -->
+  <EditDialog dialogHeader="Edit Program Details"
+              :dialogVisible="editDialogVisible"
+              :dialogCloseCallback="onDialogClose"
+              :dialogSubmitCallback="onDialogSave"
+  >
+    <FloatLabel variant="in">
+      <InputText id="dialog-category-title"
+                 v-model="categoryDialog.title"/>
+      <label for="dialog-category-title">Category Title</label>
+    </FloatLabel>
+
+    <FloatLabel variant="in">
+      <InputText id="dialog-category-minUnits"
+                 v-model="categoryDialog.minUnits"/>
+      <label for="dialog-category-minUnits">Category Minimum Units</label>
+    </FloatLabel>
+
+    <FloatLabel variant="in">
+      <InputText id="dialog-category-maxUnits"
+                 v-model="categoryDialog.maxUnits"/>
+      <label for="dialog-category-maxUnits">Category Maximum Units</label>
+    </FloatLabel>
+
+  </EditDialog>
+
+    <AddSectionDialog   :dialogVisible="addSectionDialogVisible"
+                        :addCallback="(section) => {model.addSection(section)}"
+                        :closeCallback="closeAddSectionDialog"/>
+
   <div class="program-section">
 
     <div class="section-header">
@@ -66,7 +87,7 @@ function editCallback() {
         </span>
 
         <!-- collapse toggle styled as badge -->
-        <span class="collapse-toggle"  @click="toggleCollapse">
+        <span class="collapse-toggle" @click="isCollapsed = !isCollapsed">
           <i
               class="collapse-icon pi pi-chevron-up chevron-icon"
               :class="{ collapsed: isCollapsed }"
@@ -74,15 +95,11 @@ function editCallback() {
         </span>
 
         <span class="edit-menu">
-          <EditMenu :editCallback="editCallback" :deleteCallback="deleteCallback" />
+          <EditButton :editCallback="openEditDialog" :deleteCallback="deleteCallback" />
         </span>
 
       </div>
     </div>
-
-    <!--    <div v-if="sectionInfo.completionStatus" class="section-meter">-->
-    <!--      <MeterGroup :value="meterInfo" class="completion-meter"/>-->
-    <!--    </div>-->
 
     <transition name="collapse">
       <div v-show="!isCollapsed" class="collapse-content course-grid">
@@ -93,7 +110,7 @@ function editCallback() {
           :deleteCallback="() => sectionDeleteCallback(section.getId())"
           />
         <div class="add-course">
-          <AddComponent :text="'Add Section'"/>
+          <AddButton :clickCallback="onAddButtonClick" :text="'Add Section'"/>
         </div>
       </div>
     </transition>
@@ -107,7 +124,7 @@ function editCallback() {
   padding: 1rem;
   margin: 1rem 0;
 
-  background-color: var(--surface-color);
+  background-color: var(--primary-bg-color);
 
   .section-header {
     display: flex;

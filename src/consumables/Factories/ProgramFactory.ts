@@ -31,8 +31,8 @@ export interface JSONCourseEntry {
 export class ProgramFactory {
     /**
      * Builds a program from a JSON object.
-     * @param loadedProgram The Program object loaded from JSON (this is "generic," using abstract classes).
-     * @returns A new Program instance built from the JSON object.
+     * @param loadedProgram The ProgramView object loaded from JSON (this is "generic," using abstract classes).
+     * @returns A new ProgramView instance built from the JSON object.
      */
     public static async buildProgramFromLoaded(loadedProgram: JSONProgram): Promise<Program> {
 
@@ -43,8 +43,26 @@ export class ProgramFactory {
             program.addComponent(component);
         }
 
-        console.log(program);
-
         return program;
+    }
+
+    /**
+     * Builds a JSON object from a Program instance.
+     * @param program The Program instance to convert to JSON.
+     */
+    public static buildJSONFromProgram(program: Program): JSONProgram {
+        const jsonProgram: JSONProgram = {
+            name: program.getName(),
+            code: program.getCode(),
+            year: program.getYear(),
+            units: program.getUnits(),
+            components: []
+        };
+
+        for (const component of program.getComponents()) {
+            jsonProgram.components.push(ComponentFactory.createJSONFromComponent(component));
+        }
+
+        return jsonProgram;
     }
 }

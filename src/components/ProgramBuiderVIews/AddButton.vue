@@ -1,15 +1,15 @@
 <script setup lang="ts">
     import { defineProps } from 'vue';
 
-    const { onAdd } = defineProps<{
+    const { text, clickCallback } = defineProps<{
         text: string;
-        onAdd?: () => void;
+        clickCallback: () => void;
     }>();
 
 </script>
 
 <template>
-    <div class="add-component" @click="onAdd && onAdd()">
+    <div class="add-component" @click="clickCallback">
         <div class="add-button" type="button">
             <span class="add-icon"><i class="pi pi-plus"></i></span>
             <span class="add-text">{{ text }}</span>
@@ -26,7 +26,7 @@
     justify-content: center;
     width: 100%;
 
-    background-color: var(--surface-color);
+    background-color: var(--primary-bg-color);
     border: 1px dashed var(--primary-color);
     border-radius: 0.5rem;
 
@@ -62,7 +62,7 @@
 
 .add-component:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: var(--surface-light-color);
+    background-color: var(--surface-color);
     transform: translateY(-2px);
 
     .add-button {

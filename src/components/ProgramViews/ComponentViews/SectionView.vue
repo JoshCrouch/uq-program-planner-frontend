@@ -1,60 +1,77 @@
 <script setup lang="ts">
-/* Vue imports */
-import { ref } from 'vue';
-
 /* PrimeVue imports */
-import MeterGroup, { type MeterItem } from 'primevue/metergroup';
-import { useToast } from 'primevue';
+import InputText from "primevue/inputtext";
+import FloatLabel from "primevue/floatlabel";
 
 /* View imports */
-import AddComponent from '../../shared/AddComponent.vue';
-import EditMenu from '../../shared/EditMenu.vue'
-import CourseView from "../CourseGroupViews/CourseView.vue";
+import AddButton from '../../ProgramBuiderVIews/AddButton.vue';
+import AddCourseEntryDialog from '../../ProgramBuiderVIews/AddDialogs/CourseEntries/AddCourseEntryDialog.vue';
+import EditButton from '../../ProgramBuiderVIews/EditButton.vue'
+import EditDialog from "../../ProgramBuiderVIews/EditDialog.vue";
 
-/* Logic imports */
-import {Section} from "../../../consumables/ProgramClasses/ProgramComponents/Section.ts";
-import CourseOptionView from "../CourseGroupViews/CourseOptionView.vue";
-import type {CourseEntry} from "../../../consumables/ProgramClasses/./CourseEntries/CourseEntry.ts";
+/* Logic import */
+import { Section } from '../../../consumables/ProgramClasses/ProgramComponents/Section';
+import { useSectionViewLogic } from "../../../consumables/ViewComponentLogic/ProgramViewLogic/ComponentViewLogic/SectionViewLogic.ts";
 
-/* Props */
+/* ----- Props ----- */
 const { model, deleteCallback } = defineProps<{
   model: Section;
   deleteCallback: () => void;
 }>();
 
-/* Toast for notifications */
-const toast = useToast();
+const {
+  // State variables
+  isCollapsed,
+  courseEntryMap,
+  editDialogVisible,
+  sectionDialog,
+  addCourseEntryDialogVisible,
 
-/* Collapse logic */
-const isCollapsed = ref(false);
-function toggleCollapse() {
-  isCollapsed.value = !isCollapsed.value;
-}
+  // Methods
+  courseEntryDeleteCallback,
+  openEditDialog,
+  onEditDialogClose,
+  onEditDialogSave,
+  onAddButtonClick,
+  closeAddCourseEntryDialog
 
-/* CourseEntries Map */
-const courseEntryMap: Record<string, any> = {
-  singular: CourseView,
-  option: CourseOptionView
-};
+} = useSectionViewLogic(model);
 
-function courseEntryDeleteCallback(courseEntry: CourseEntry) {
-  toast.add({
-    severity: 'success',
-    summary: 'Course Deleted',
-    detail: `${courseEntry.getTitle()} has been deleted from ${model.getTitle()}.`,
-    life: 3000
-  });
-  model.removeCourseEntry(courseEntry);
-}
-
-function editCallback() {
-  // Handle edit logic here
-  console.log('Edit callback triggered');
-}
-  
 </script>
 
 <template>
+  <!-- Dialog for editing section -->
+  <EditDialog dialogHeader="Edit Program Details"
+              :dialogVisible="editDialogVisible"
+              :dialogCloseCallback="onEditDialogClose"
+              :dialogSubmitCallback="onEditDialogSave"
+  >
+    <FloatLabel variant="in">
+      <InputText id="dialog-section-title"
+                 v-model="sectionDialog.title"/>
+      <label for="dialog-section-title">Category Title</label>
+    </FloatLabel>
+
+    <FloatLabel variant="in">
+      <InputText id="dialog-section-minUnits"
+                 v-model="sectionDialog.minUnits"/>
+      <label for="dialog-section-minUnits">Category Minimum Units</label>
+    </FloatLabel>
+
+    <FloatLabel variant="in">
+      <InputText id="dialog-section-maxUnits"
+                 v-model="sectionDialog.maxUnits"/>
+      <label for="dialog-section-maxUnits">Category Maximum Units</label>
+    </FloatLabel>
+
+  </EditDialog>
+
+  <!-- Dialog for adding course entry -->
+  <AddCourseEntryDialog :dialogVisible="addCourseEntryDialogVisible"
+                        :addCallback="(courseEntry) => model.addCourseEntry(courseEntry)"
+                        :closeCallback="closeAddCourseEntryDialog"/>
+
+  <!-- Program Section Display -->
   <div class="program-section">
 
     <div class="section-header">
@@ -73,8 +90,7 @@ function editCallback() {
           <span class="units-label">max</span>
         </span>
 
-        <!-- collapse toggle styled as badge -->
-        <span class="collapse-toggle"  @click="toggleCollapse">
+        <span class="collapse-toggle"  @click="isCollapsed = !isCollapsed">
           <i
             class="collapse-icon pi pi-chevron-up chevron-icon"
             :class="{ collapsed: isCollapsed }"
@@ -82,15 +98,11 @@ function editCallback() {
         </span>
 
         <span class="edit-menu">
-          <EditMenu :editCallback="editCallback" :deleteCallback="deleteCallback" />
+          <EditButton :editCallback="openEditDialog" :deleteCallback="deleteCallback" />
         </span>
 
       </div>
     </div>
-
-<!--    <div v-if="sectionInfo.completionStatus" class="section-meter">-->
-<!--      <MeterGroup :value="meterInfo" class="completion-meter"/>-->
-<!--    </div>-->
 
     <transition name="collapse">
       <div v-show="!isCollapsed" class="collapse-content course-grid">
@@ -103,7 +115,7 @@ function editCallback() {
         />
 
         <div class="add-course">
-          <AddComponent :text="'Add Course'"/>
+          <AddButton :text="'Add Course'" :clickCallback="onAddButtonClick"/>
         </div>
       </div>
     </transition>
@@ -117,7 +129,7 @@ function editCallback() {
   padding: 1rem;
   margin: 1rem 0;
 
-  background-color: var(--surface-color);
+  background-color: var(--primary-bg-color);
 
   .section-header {
     display: flex;
@@ -194,12 +206,6 @@ function editCallback() {
         height: 4rem;
         border-radius: 0.75rem;
       }
-    }
-  }
-
-  .section-meter {
-    .completion-meter {
-      padding: 1rem 0;
     }
   }
 }

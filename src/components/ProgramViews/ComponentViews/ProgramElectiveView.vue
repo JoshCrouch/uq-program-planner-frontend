@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import EditMenu from '../../shared/EditMenu.vue'
-
 import { ProgramElective } from "../../../consumables/ProgramClasses/ProgramComponents/ProgramElective.ts";
 
 // Props
@@ -8,11 +6,6 @@ const { model, deleteCallback } = defineProps<{
   model: ProgramElective;
   deleteCallback: () => void
 }>();
-
-function editCallback() {
-  // Handle edit logic here
-  console.log('Edit callback triggered');
-}
 
 </script>
 
@@ -35,15 +28,15 @@ function editCallback() {
           <span class="units-label">max</span>
         </span>
 
-        <span class="edit-menu">
-          <EditMenu :editCallback="editCallback" :deleteCallback="deleteCallback" />
+        <span class="delete-button" @click="deleteCallback">
+          <i class="delete-icon pi pi-trash"/>
         </span>
 
       </div>
     </div>
 
-    <div>
-      <p>Program Elective Text</p>
+    <div class="program-elective-text">
+      <p>Choose any course from any option (major, minor, etc) of this program.</p>
     </div>
   </div>
 </template>
@@ -55,7 +48,7 @@ function editCallback() {
   padding: 1rem;
   margin: 1rem 0;
 
-  background-color: var(--surface-color);
+  background-color: var(--primary-bg-color);
 
   .section-header {
     display: flex;
@@ -108,7 +101,7 @@ function editCallback() {
         }
       }
 
-      .collapse-toggle {
+      .delete-button {
         display: flex;
         width: 4rem;
         height: 4rem;
@@ -126,24 +119,22 @@ function editCallback() {
         }
       }
 
-      .edit-menu {
-        display: flex;
-        width: 4rem;
-        height: 4rem;
-        border-radius: 0.75rem;
-      }
     }
   }
 
-  .section-meter {
-    .completion-meter {
-      padding: 1rem 0;
+  .program-elective-text {
+    background-color: var(--surface-light-color);
+    border-radius: 1rem;
+    padding: 1rem;
+
+    font-size: var(--big-font-size);
+    text-align: center;
+
+    cursor: default;
+
+    &:hover {
+      background-color: var(--surface-light-color-alt);
     }
   }
-}
-
-.course-grid {
-  display: grid;
-  grid-template-columns: 1fr;
 }
 </style>

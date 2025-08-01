@@ -5,9 +5,9 @@
   "units": 80,
   "components" : [
     {
-      "id" : "core",
+      "id" : "BE(Hons)/MECoreCourses",
       "type" : "section",
-      "title" : "Core Courses",
+      "title" : "BE(Hons)/ME Core Courses",
       "minUnits" : 8,
       "maxUnits" : 8,
       "courseEntries" : [
@@ -33,204 +33,116 @@
       ]
     },
     {
-      "id": "fieldOfStudy",
+      "id": "ElectricalandComputerEngineering",
       "type": "category",
-      "title": "Electrical and Computer Engineering Field of Study",
+      "title": "Electrical and Computer Engineering",
       "minUnits": 66,
       "maxUnits": 66,
       "sections": [
         {
-          "id": "fieldOfStudy-compulsory",
+          "id": "ElectricalandComputerBE(Hons)/MECompulsoryCourses",
           "type": "section",
-          "title": "Compulsory Courses",
+          "title": "Electrical and Computer BE(Hons)/ME Compulsory Courses",
           "minUnits": 50,
           "maxUnits": 50,
           "courseEntries": [
-            {
-              "type": "singular",
-              "code": "ENGG1300"
-            },
-            {
-              "type": "singular",
-              "code": "CSSE2002"
-            },
-            {
-              "type": "singular",
-              "code": "CSSE2010"
-            },
-            {
-              "type": "singular",
-              "code": "CSSE2310"
-            },
-            {
-              "type": "singular",
-              "code": "ELEC2004"
-            },
-            {
-              "type": "singular",
-              "code": "ELEC2300"
-            },
-            {
-              "type": "singular",
-              "code": "ELEC2400"
-            },
-            {
-              "type": "singular",
-              "code": "ENGG2800"
-            },
-            {
-              "type": "singular",
-              "code": "MATH2001"
-            },
-            {
-              "type": "singular",
-              "code": "MATH2010"
-            },
-            {
-              "type": "singular",
-              "code": "STAT2201"
-            },
-            {
-              "type": "singular",
-              "code": "COMP3506"
-            },
-            {
-              "type": "singular",
-              "code": "CSSE3010"
-            },
-            {
-              "type": "singular",
-              "code": "ELEC3004"
-            },
-            {
-              "type": "singular",
-              "code": "ELEC3100"
-            },
-            {
-              "type": "singular",
-              "code": "ENGG3800"
-            },
-            {
-              "type": "singular",
-              "code": "CSSE4010"
-            },
-            {
-              "type": "singular",
-              "code": "CSSE4011"
-            },
-            {
-              "type": "singular",
-              "code": "ENGG4900"
-            },
-            {
-              "type": "singular",
-              "code": "METR4201"
-            },
-            {
-              "type": "singular",
-              "code": "CSSE7610"
-            },
-            {
-              "type": "singular",
-              "code": "ENGG7921"
-            },
-            {
-              "type": "singular",
-              "code": "ENGG7701"
-            }
+            { "type": "singular", "code": "ENGG1300" },
+            { "type": "singular", "code": "CSSE2002" },
+            { "type": "singular", "code": "CSSE2010" },
+            { "type": "singular", "code": "CSSE2310" },
+            { "type": "singular", "code": "ELEC2004" },
+            { "type": "singular", "code": "ELEC2300" },
+            { "type": "singular", "code": "ELEC2400" },
+            { "type": "singular", "code": "ENGG2800" },
+            { "type": "singular", "code": "MATH2001" },
+            { "type": "singular", "code": "MATH2010" },
+            { "type": "singular", "code": "STAT2201" },
+            { "type": "singular", "code": "COMP3506" },
+            { "type": "singular", "code": "CSSE3010" },
+            { "type": "singular", "code": "ELEC3004" },
+            { "type": "singular", "code": "ELEC3100" },
+            { "type": "singular", "code": "ENGG3800" },
+            { "type": "singular", "code": "CSSE4010" },
+            { "type": "singular", "code": "CSSE4011" },
+            { "type": "singular", "code": "ENGG4900" },
+            { "type": "singular", "code": "METR4201" },
+            { "type": "singular", "code": "CSSE7610" },
+            { "type": "singular", "code": "ENGG7921" },
+            { "type": "singular", "code": "ENGG7701" }
           ]
         },
         {
-          "id": "fieldOfStudy-electives",
+          "id": "Electives",
           "type": "section",
           "title": "Electives",
           "minUnits": 4,
           "maxUnits": 12,
           "courseEntries": [
-            {
-              "type": "singular",
-              "code": "COMP4403"
-            },
-            {
-              "type": "singular",
-              "code": "COMP4500"
-            },
-            {
-              "type": "singular",
-              "code": "COMP4702"
-            },
-            {
-              "type": "singular",
-              "code": "COMS4104"
-            }
+            { "type": "singular", "code": "COMP4403" },
+            { "type": "singular", "code": "COMP4500" },
+            { "type": "singular", "code": "COMP4702" },
+            { "type": "singular", "code": "COMS4104" },
+            { "type": "singular", "code": "COMS4105" },
+            { "type": "singular", "code": "COMS4113" },
+            { "type": "singular", "code": "COMS4507" },
+            { "type": "singular", "code": "COMS6200" },
+            { "type": "singular", "code": "CSSE6400" },
+            { "type": "singular", "code": "ELEC3310" },
+            { "type": "singular", "code": "ELEC4310" },
+            { "type": "singular", "code": "ELEC4630" },
+            { "type": "singular", "code": "METR4202" },
+            { "type": "singular", "code": "METR6203" }
           ]
         },
         {
-          "id": "fieldOfStudy-breadthElectives",
+          "id": "BreadthElectives",
           "type": "section",
           "title": "Breadth Electives",
           "minUnits": 0,
           "maxUnits": 8,
           "courseEntries": [
-            {
-              "type": "singular",
-              "code": "COMP2140"
-            },
-            {
-              "type": "singular",
-              "code": "COMP3301"
-            },
-            {
-              "type": "singular",
-              "code": "COMP3702"
-            },
-            {
-              "type": "singular",
-              "code": "COMP3710"
-            }
+            { "type": "singular", "code": "COMP2140" },
+            { "type": "singular", "code": "COMP3301" },
+            { "type": "singular", "code": "COMP3702" },
+            { "type": "singular", "code": "COMP3710" },
+            { "type": "singular", "code": "COMS3200" },
+            { "type": "singular", "code": "COSC3500" },
+            { "type": "singular", "code": "CSSE3012" },
+            { "type": "singular", "code": "CSSE3100" },
+            { "type": "singular", "code": "CSSE3200" },
+            { "type": "singular", "code": "CYBR3000" },
+            { "type": "singular", "code": "DECO1400" },
+            { "type": "singular", "code": "DECO2500" },
+            { "type": "singular", "code": "DECO3800" },
+            { "type": "singular", "code": "DECO3801" },
+            { "type": "singular", "code": "ENGG4800" },
+            { "type": "singular", "code": "ENGG6020" },
+            { "type": "singular", "code": "INFS1200" },
+            { "type": "singular", "code": "INFS2200" },
+            { "type": "singular", "code": "METR3100" }
+
           ]
         },
         {
-          "id": "fieldOfStudy-mastersElectives",
+          "id": "MastersElectives",
           "type": "section",
           "title": "Masters Electives",
           "minUnits": 4,
           "maxUnits": 12,
           "courseEntries": [
-            {
-              "type": "singular",
-              "code": "BIOE6901"
-            },
-            {
-              "type": "singular",
-              "code": "BIOE7902"
-            },
-            {
-              "type": "singular",
-              "code": "COMS7305"
-            },
-            {
-              "type": "singular",
-              "code": "COMS7309"
-            },
-            {
-              "type": "singular",
-              "code": "ENGG7302"
-            },
-            {
-              "type": "singular",
-              "code": "ENGG7811"
-            },
-            {
-              "type": "singular",
-              "code": "INFS7410"
-            }
+            { "type": "singular", "code": "BIOE6901" },
+            { "type": "singular", "code": "BIOE7902" },
+            { "type": "singular", "code": "COMS7305" },
+            { "type": "singular", "code": "COMS7309" },
+            { "type": "singular", "code": "ENGG7302" },
+            { "type": "singular", "code": "ENGG7811" },
+            { "type": "singular", "code": "INFS7410" }
           ]
         }
       ]
     },
     {
-      "id": "preparatoryScienceAndMathematics",
+      "id": "PreparatoryScienceandMathematics",
       "type": "section",
       "title": "Preparatory Science and Mathematics",
       "minUnits": 0,
@@ -242,7 +154,7 @@
       ]
     },
     {
-      "id": "firstYearElectives",
+      "id": "FirstYearElectives",
       "type": "section",
       "title": "First Year Electives",
       "minUnits": 0,
@@ -252,7 +164,10 @@
         { "type": "singular", "code": "BIOL1040" },
         { "type": "singular", "code": "CHEM1100" },
         { "type": "singular", "code": "DSGN1500" },
-        { "type": "singular", "code": "ERTH1051" }
+        { "type": "singular", "code": "ERTH1501" },
+        { "type": "singular", "code": "ENGG1600" },
+        { "type": "singular", "code": "ENGG2000" },
+        { "type": "singular", "code": "PHYS1002" }
       ]
     },
     {

@@ -33,6 +33,25 @@ export class CourseOption extends CourseEntry {
         }
     }
 
+    public static async fromCourseCodes(optionOneCode: string, optionTwoCode: string): Promise<CourseOption> {
+        // Validate the course codes
+        if (!optionOneCode || !optionTwoCode) {
+            throw new Error("Both optionOneCode and optionTwoCode are required.");
+        }
+
+        try {
+            // Create Course instances from the provided course codes
+            const optionOne: Course = await Course.fromCourseCode(optionOneCode);
+            const optionTwo: Course = await Course.fromCourseCode(optionTwoCode);
+
+            return new CourseOption(optionOne, optionTwo);
+
+        } catch (err: any) {
+            console.error("Error creating CourseOption from course codes:", err);
+            throw new Error(`Could not create CourseOption from course codes: ${err?.message}`);
+        }
+    }
+
     /* ---- Getters and Setters ---- */
 
     /**

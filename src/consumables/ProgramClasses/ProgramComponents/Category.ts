@@ -19,9 +19,7 @@ export class Category extends ProgramComponent {
     static async fromJSON(componentJson: any): Promise<Category> {
         const category = new Category(componentJson.id, componentJson.title, componentJson.minUnits, componentJson.maxUnits);
         for (const sectionJson of componentJson.sections || []) {
-            console.log(sectionJson);
             const section = await Section.fromJSON(sectionJson);
-            console.log(section);
             category.addSection(section);
         }
 

@@ -54,15 +54,15 @@ watch(isDarkTheme, (val) => {
     --p-toggleswitch-handle-checked-hover-color: var(--opposite-primary-text-color);
     --p-toggleswitch-handle-checked-background: transparent;
     --p-toggleswitch-handle-checked-hover-background: transparent;
-    --p-toggleswitch-checked-background: var(--primary-bg-color);
-    --p-toggleswitch-checked-hover-background: var(--opposite-primary-bg-color);
+    --p-toggleswitch-checked-background: var(--surface-color);
+    --p-toggleswitch-checked-hover-background: var(--opposite-surface-color);
 
     --p-toggleswitch-handle-color: var(--primary-text-color);
     --p-toggleswitch-handle-hover-color: var(--opposite-primary-text-color);
     --p-toggleswitch-handle-background: transparent;
     --p-toggleswitch-handle-hover-background: transparent;
-    --p-toggleswitch-background: var(--primary-bg-color);
-    --p-toggleswitch-hover-background: var(--opposite-primary-bg-color);
+    --p-toggleswitch-background: var(--surface-color);
+    --p-toggleswitch-hover-background: var(--opposite-surface-color);
 
     --p-toggleswitch-transition-duration: 0.3s; /* Transition duration for toggleswitch */
 

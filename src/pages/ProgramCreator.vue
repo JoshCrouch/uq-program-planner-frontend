@@ -1,10 +1,10 @@
 <script setup lang="ts">
-    import Program from '../components/ProgramViews/Program.vue';
+    import ProgramView from '../components/ProgramViews/ProgramView.vue';
 </script>
 
 <template>
     <h1 class="page-title">Program Creator</h1>
-    <Program/>
+    <ProgramView/>
 </template>
 
 <style scoped>

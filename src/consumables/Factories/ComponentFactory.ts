@@ -1,4 +1,5 @@
-import {ProgramComponent} from "../ProgramClasses/ProgramComponents/ProgramComponent.ts";
+import { ProgramComponent } from "../ProgramClasses/ProgramComponents/ProgramComponent.ts";
+import type { JSONProgramComponent } from "./ProgramFactory.ts";
 
 export function RegisterComponent(type: string) {
     return function (constructor: typeof ProgramComponent) {
@@ -31,10 +32,25 @@ export class ComponentFactory {
         const componentClass = this.componentRegistry[componentType];
 
         if (!componentClass) {
-            console.log("Registery: ", this.componentRegistry);
             throw new Error(`Component type "${componentType}" is not registered.`);
         }
 
         return await componentClass.fromJSON(json);
+    }
+
+    public static createJSONFromComponent(component: ProgramComponent): JSONProgramComponent {
+        const componentClass = this.componentRegistry[component.getType()];
+
+        if (!componentClass) {
+            throw new Error(`Component type "${component.getType()}" is not registered.`);
+        }
+
+        return {
+            id: '',
+            type: '',
+            title: '',
+            minUnits: 0,
+            maxUnits: 0
+        }
     }
 }

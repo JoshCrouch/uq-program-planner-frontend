@@ -1,4 +1,4 @@
-/* UQ Program Planner - Global Styles */
+/* UQ ProgramView Planner - Global Styles */
 :root {
   --uq-primary-color: #51247A;    /* UQ purple */
 
@@ -26,7 +26,8 @@
 
   /* Aliases for components */
   --primary-color: var(--uq-primary-color);
-  --primary-color-hover: #6A1B9A; /* Darker shade for hover effects */
+  --primary-color-alt: color-mix(in srgb, var(--surface-light-color-alt) 50%, var(--primary-color) 50%);
+  --primary-color-hover: #6A1B9A;
   --text-color: var(--primary-text-color);
 
   --biggest-font-size: 2rem; /* Largest font size for headings */
@@ -84,7 +85,8 @@ body {
   padding: 0;
   box-sizing: border-box;
   min-height: 100vh;
-  background-color: var(--surface-color);
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
 }
 
 *, *::before, *::after {
@@ -93,18 +95,34 @@ body {
   --color-transitions: background-color var(--colour-transition-time) ease-in-out, color var(--colour-transition-time) ease-in-out;
   transition: var(--color-transitions);
 
-  --p-menu-background: var(--surface-color); /* Default background for PrimeVue menu overlay */
+  /* PrimeVue Menu Component Variables */
+  --p-menu-background: var(--primary-bg-color); /* Default background for PrimeVue menu overlay */
   --p-menu-border-color: var(--primary-color);
   --p-menu-item-color: var(--primary-text-color);
   --p-menu-item-focus-background: var(--surface-light-color-alt);
   --p-menu-item-focus-color: var(--primary-text-color);
   --p-menu-item-icon-color: var(--primary-text-color);
   --p-menu-item-icon-focus-color: var(--primary-text-color);
+
+  /* PrimeVue Select Component Variables */
+  --p-select-overlay-background: var(--surface-color);
+  --p-select-overlay-border-color: var(--primary-color);
+
+  --p-select-option-background: var(--surface-light-color-alt);
+  --p-select-option-focus-background: var(--surface-light-color-alt);
+  --p-select-option-selected-background: var(--primary-color-alt);
+  --p-select-option-selected-focus-background: var(--primary-color-alt);
+
+  --p-select-option-color: var(--primary-text-color);
+  --p-select-option-focus-color: var(--primary-text-color);
+  --p-select-option-selected-color: white;
+  --p-select-option-selected-focus-color: white;
+
 }
 
 .p-menu-overlay {
   background: white;
-}/* Smooth transitions for theme changes */
+}
 
 /*
 Example for the order of CSS rules:

@@ -10,7 +10,7 @@
     }>();
 
     // Edit Menu Items
-    var editMenuItems = [
+    let editMenuItems = [
         {
             label: 'Edit',
             icon: 'pi pi-pencil',
@@ -28,7 +28,8 @@
     ];
 
     // Popup menu ref
-    const menu = ref<Menu | null>(null);
+    const menu = ref<InstanceType<typeof Menu> | null>(null);
+
     // Open edit menu
     function toggleMenu(event: MouseEvent) {
         menu.value?.toggle(event);
@@ -53,6 +54,7 @@
 
     &:not(:disabled):hover {
         background-color: var(--surface-light-color-alt);
+        color: var(--secondary-text-color);
         border: none;
     }
 }

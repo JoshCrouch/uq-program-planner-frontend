@@ -15,22 +15,23 @@ const { model } = defineProps<{
 
 <template>
     <div class="option-course-card">
+      <div class="course-option">
         <CourseView
-            class="course-card"
             :model="model.getOption(1)"
             :deleteCallback="() => deleteCallback()"
         />
-        <div class="or-text">
-            <span class="or-text-span">
-                <h1>OR</h1>
-            </span>
-        </div>
-
+      </div>
+      <div class="or-text">
+          <span class="or-text-span">
+              <h1>OR</h1>
+          </span>
+      </div>
+      <div class="course-option">
         <CourseView
-            class="course-card"
             :model="model.getOption(2)"
             :deleteCallback="() => deleteCallback()"
         />
+      </div>
     </div>
         
 </template>
@@ -38,14 +39,11 @@ const { model } = defineProps<{
 <style scoped>
 
 .option-course-card {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 1rem;
-}
-
-.course-card {
-    flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 .or-text {
@@ -67,10 +65,15 @@ const { model } = defineProps<{
   cursor: default;
 
   &:hover {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--opposite-secondary-text-color);
   }
 
+}
+
+.course-option {
+  padding: 0;
+  margin: 0;
+  flex: 1;
 }
 
 </style>

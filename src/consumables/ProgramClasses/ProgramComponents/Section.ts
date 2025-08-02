@@ -1,9 +1,8 @@
-import { ProgramComponent } from "./ProgramComponent.ts";
-import { CourseEntry } from ".././CourseEntries/CourseEntry.ts";
-import { RegisterComponent } from "../../Factories/ComponentFactory.ts";
-import type {JSONProgramComponent} from "../../Factories/ProgramFactory.ts";
-import type { JSONCourseEntry } from "../../Factories/ProgramFactory.ts";
-import { CourseEntryFactory } from "../../Factories/CourseEntryFactory.ts";
+import {ProgramComponent} from "./ProgramComponent.ts";
+import {CourseEntry} from ".././CourseEntries/CourseEntry.ts";
+import {RegisterComponent} from "../../Factories/ComponentFactory.ts";
+import type {JSONCourseEntry, JSONProgramComponent} from "../../Factories/ProgramFactory.ts";
+import {CourseEntryFactory} from "../../Factories/CourseEntryFactory.ts";
 
 @RegisterComponent('section')
 export class Section extends ProgramComponent {
@@ -35,6 +34,24 @@ export class Section extends ProgramComponent {
         return section;
     }
 
+    /**
+     * Converts a SectionView to a JSON object.
+     * @param section The SectionView instance to convert.
+     * @returns A JSON representation of the section.
+     */
+    static toJSON(section: Section): JSONProgramComponent {
+
+        return {
+            id: section.getId(),
+            type: section.getType(),
+            title: section.getTitle(),
+            minUnits: section.getMinUnits(),
+            maxUnits: section.getMaxUnits(),
+            courseEntries: section.getCourseEntries().map(courseEntry => CourseEntryFactory.toJSON(courseEntry))
+        };
+    }
+
+    /* ---- Getters and Setters ---- */
     /**
      * Get the course groups in this section.
      * @returns An array of course groups in this section.

@@ -30,6 +30,15 @@ export abstract class ProgramComponent {
         throw new Error("Method 'fromJSON' must be implemented in class: " + componentJson.type);
     }
 
+    /**
+     * Converts a ProgramComponent to a JSON object.
+     * @param component The ProgramComponent instance to convert.
+     * @returns A JSON representation of the component.
+     */
+    static toJSON(component: ProgramComponent): JSONProgramComponent {
+        throw new Error("Method 'toJSON' must be implemented in component: " + component.getType());
+    }
+
     /* ---- Getters and Setters ---- */
     /**
      * Get the type of the component.

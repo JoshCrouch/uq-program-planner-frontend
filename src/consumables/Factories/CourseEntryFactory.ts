@@ -1,4 +1,5 @@
 import {CourseEntry} from "../ProgramClasses/./CourseEntries/CourseEntry.ts";
+import type {JSONCourseEntry} from "./ProgramFactory.ts";
 
 export function RegisterCourseEntry(type: string) {
     return function (constructor: any) { // Use 'any' to allow static property assignment
@@ -31,10 +32,19 @@ export class CourseEntryFactory {
         const courseEntryClass = this.courseEntryRegistry[courseEntryType];
 
         if (!courseEntryClass) {
-            console.log("Registry: ", this.courseEntryRegistry);
             throw new Error(`Course entry type "${courseEntryType}" is not registered.`);
         }
 
         return courseEntryClass.fromJSON(json);
+    }
+
+    public static toJSON(courseEntry: CourseEntry): JSONCourseEntry {
+        const courseEntryClass = this.courseEntryRegistry[courseEntry.getType()];
+
+        if (!courseEntryClass) {
+            throw new Error(`Course entry type "${courseEntry.getType()}" is not registered.`);
+        }
+
+        return courseEntryClass.toJSON(courseEntry);
     }
 }

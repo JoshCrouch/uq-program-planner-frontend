@@ -45,6 +45,13 @@ export class Course extends CourseEntry {
         return new Course(courseData.code, courseData.title, courseData.units);
     }
 
+    static toJSON(course: Course): JSONCourseEntry {
+        return {
+            type: this.TYPE,
+            code: course.getCode()
+        };
+    }
+
     /**
      * Creates a Course instance from a course code.
      * @param code The course code to fetch the course data for.

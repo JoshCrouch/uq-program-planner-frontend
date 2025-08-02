@@ -33,6 +33,14 @@ export class CourseOption extends CourseEntry {
         }
     }
 
+    static toJSON(courseOption: CourseOption): JSONCourseEntry {
+        return {
+            type: this.TYPE,
+            optionOne: courseOption.optionOne.getCode(),
+            optionTwo: courseOption.optionTwo.getCode()
+        };
+    }
+
     public static async fromCourseCodes(optionOneCode: string, optionTwoCode: string): Promise<CourseOption> {
         // Validate the course codes
         if (!optionOneCode || !optionTwoCode) {

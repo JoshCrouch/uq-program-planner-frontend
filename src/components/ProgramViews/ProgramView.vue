@@ -12,14 +12,16 @@ import AddButton from "../ProgramBuiderVIews/AddButton.vue";
 import AddProgramComponentDialog from "../ProgramBuiderVIews/AddDialogs/ProgramComponents/AddProgramComponentDialog.vue";
 
 /* Logic imports */
+import { ProgramController } from "../../consumables/ProgramController.ts";
 import { useProgramViewLogic } from '../../consumables/ViewComponentLogic/ProgramViewLogic/ProgramViewLogic.ts';
 
 /* ----- Props ----- */
-// Currently no props are defined - Program JSON will have to added later
+const { controller } = defineProps<{
+  controller: ProgramController;
+}>();
 
 const {
   /* State Variables */
-  controller,
   componentMap,
   editDialogVisible,
   programDialog,
@@ -32,7 +34,7 @@ const {
   onEditDialogSave,
   onAddButtonClick,
   closeAddProgramComponentDialog
-} = useProgramViewLogic();
+} = useProgramViewLogic(controller);
 
 </script>
 

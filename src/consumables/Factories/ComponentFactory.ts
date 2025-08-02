@@ -45,12 +45,6 @@ export class ComponentFactory {
             throw new Error(`Component type "${component.getType()}" is not registered.`);
         }
 
-        return {
-            id: '',
-            type: '',
-            title: '',
-            minUnits: 0,
-            maxUnits: 0
-        }
+        return componentClass.toJSON(component);
     }
 }

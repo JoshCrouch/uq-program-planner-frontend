@@ -1,6 +1,7 @@
-import { ProgramComponent } from "./ProgramComponent.ts";
-import { Section } from "./Section.ts";
-import { RegisterComponent } from "../../Factories/ComponentFactory.ts";
+import {ProgramComponent} from "./ProgramComponent.ts";
+import {Section} from "./Section.ts";
+import {RegisterComponent} from "../../Factories/ComponentFactory.ts";
+import type {JSONProgramComponent} from "../../Factories/ProgramFactory.ts";
 
 @RegisterComponent('category')
 export class Category extends ProgramComponent {
@@ -24,6 +25,17 @@ export class Category extends ProgramComponent {
         }
 
         return category;
+    }
+
+    static toJSON(category: Category): JSONProgramComponent {
+        return {
+            id: category.getId(),
+            type: category.getType(),
+            title: category.getTitle(),
+            minUnits: category.getMinUnits(),
+            maxUnits: category.getMaxUnits(),
+            sections: category.getSections().map(section => Section.toJSON(section))
+        };
     }
 
     /* ---- Getters and Setters ---- */

@@ -13,5 +13,13 @@ export class GeneralElective extends ProgramComponent {
         return new GeneralElective(componentJson.id, componentJson.title, componentJson.minUnits, componentJson.maxUnits);
     }
 
-    // GeneralElective does not have specific courses, so no additional methods are needed
+    static toJSON(component: GeneralElective): JSONProgramComponent {
+        return {
+            id: component.getId(),
+            type: component.getType(),
+            title: component.getTitle(),
+            minUnits: component.getMinUnits(),
+            maxUnits: component.getMaxUnits()
+        };
+    }
 }

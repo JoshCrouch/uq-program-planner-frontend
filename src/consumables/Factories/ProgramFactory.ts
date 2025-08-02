@@ -27,7 +27,6 @@ export interface JSONCourseEntry {
     code?: string;
 }
 
-
 export class ProgramFactory {
     /**
      * Builds a program from a JSON object.
@@ -51,6 +50,7 @@ export class ProgramFactory {
      * @param program The Program instance to convert to JSON.
      */
     public static buildJSONFromProgram(program: Program): JSONProgram {
+
         const jsonProgram: JSONProgram = {
             name: program.getName(),
             code: program.getCode(),

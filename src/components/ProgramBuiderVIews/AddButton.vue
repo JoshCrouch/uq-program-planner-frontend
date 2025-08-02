@@ -10,7 +10,7 @@
 
 <template>
     <div class="add-component" @click="clickCallback">
-        <div class="add-button" type="button">
+        <div class="add-button">
             <span class="add-icon"><i class="pi pi-plus"></i></span>
             <span class="add-text">{{ text }}</span>
         </div>

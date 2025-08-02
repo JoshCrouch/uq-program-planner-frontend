@@ -8,6 +8,10 @@ export abstract class CourseEntry {
         throw new Error("fromJSON method must be implemented in class: " + componentJson.type);
     }
 
+    static toJSON(courseEntry: CourseEntry): JSONCourseEntry {
+        throw new Error("toJSON method must be implemented in class: " + courseEntry.getType());
+    }
+
     /* ---- Getters and Setters ---- */
     public abstract getTitle(): string;
 

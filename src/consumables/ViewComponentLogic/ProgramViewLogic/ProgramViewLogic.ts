@@ -9,15 +9,9 @@ import CategoryView from "../../../components/ProgramViews/ComponentViews/Catego
 import ProgramElectiveView from "../../../components/ProgramViews/ComponentViews/ProgramElectiveView.vue";
 import GeneralElectiveView from "../../../components/ProgramViews/ComponentViews/GeneralElectiveView.vue";
 
-/* Temp - Will be passed in as prop later on */
-import exampleProgram from '../../../resources/example_program.json';
-
-export function useProgramViewLogic() {
+export function useProgramViewLogic(controller: ProgramController) {
 
     /* ----- View Values ----- */
-    // Create a reactive program instance from the example JSON
-    const controller: ProgramController = new ProgramController(exampleProgram);
-
     // Use PrimeVue's Toast for notifications
     const toast = useToast();
 
@@ -128,7 +122,6 @@ export function useProgramViewLogic() {
     /* ----- Return Values ----- */
     return {
         /* State Variables */
-        controller,
         componentMap,
         editDialogVisible,
         programDialog,

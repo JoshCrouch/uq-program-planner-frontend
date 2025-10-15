@@ -1,57 +1,67 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import FloatLabel from 'primevue/floatlabel';
-import InputText from 'primevue/inputtext';
+import FloatLabel from "primevue/floatlabel";
+import InputText from "primevue/inputtext";
 import { useToast } from "primevue/usetoast";
-import {ProgramElective} from "../../../../consumables/ProgramClasses/ProgramComponents/ProgramElective.ts";
+import { ProgramElective } from "../../../../consumables/ProgramClasses/ProgramComponents/ProgramElective.ts";
 
 const toast = useToast();
 
 function getProgramComponent(): ProgramElective {
   if (!minUnits.value) {
     toast.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: 'Minimum units must be provided.',
-      life: 3000
+      severity: "error",
+      summary: "Error",
+      detail: "Minimum units must be provided.",
+      life: 3000,
     });
-    throw new Error('Minimum units must be provided.');
+    throw new Error("Minimum units must be provided.");
   }
 
   if (!maxUnits.value) {
     toast.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: 'Maximum units must be provided.',
-      life: 3000
+      severity: "error",
+      summary: "Error",
+      detail: "Maximum units must be provided.",
+      life: 3000,
     });
-    throw new Error('Maximum units must be provided.');
+    throw new Error("Maximum units must be provided.");
   }
 
   return new ProgramElective(
-      'ProgramElective',
-      'Program Elective',
-      parseInt(minUnits.value),
-      parseInt(maxUnits.value)
-  )
+    "ProgramElective",
+    "Program Elective",
+    parseInt(minUnits.value),
+    parseInt(maxUnits.value),
+  );
 }
 
 defineExpose({
   getProgramComponent,
-})
+});
 
-const minUnits = ref<string>('');
-const maxUnits = ref<string>('');
+const minUnits = ref<string>("");
+const maxUnits = ref<string>("");
 </script>
 
 <template>
   <FloatLabel variant="in">
-    <InputText id="section-minUnits" v-model="minUnits"></InputText>
+    <InputText
+      id="section-minUnits"
+      v-model="minUnits"
+      v-keyfilter="/^[0-9]*$/"
+    >
+    </InputText>
     <label for="section-minUnits">Minimum Units</label>
   </FloatLabel>
 
   <FloatLabel variant="in">
-    <InputText id="section-maxUnits" v-model="maxUnits"></InputText>
+    <InputText
+      id="section-maxUnits"
+      v-model="maxUnits"
+      v-keyfilter="/^[0-9]*$/"
+    >
+    </InputText>
     <label for="section-maxUnits">Maximum Units</label>
   </FloatLabel>
 </template>

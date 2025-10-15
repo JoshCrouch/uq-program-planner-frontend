@@ -1,67 +1,62 @@
 <script setup lang="ts">
-
 /* PrimeVue imports */
-import Button from 'primevue/button';
-import Dialog from 'primevue/dialog';
+import Button from "primevue/button";
+import Dialog from "primevue/dialog";
 import FloatLabel from "primevue/floatlabel";
 
 /* Logic imports */
-import {
-    useAddSectionDialogLogic
-} from "../../../consumables/ViewComponentLogic/AddDialogLogic/AddSectionDialogLogic.ts";
+import { useAddSectionDialogLogic } from "../../../consumables/ViewComponentLogic/AddDialogLogic/AddSectionDialogLogic.ts";
 import { Section } from "../../../consumables/ProgramClasses/ProgramComponents/Section.ts";
 import InputText from "primevue/inputtext";
 
 let { dialogVisible, addCallback, closeCallback } = defineProps<{
-  dialogVisible: boolean,
+  dialogVisible: boolean;
   addCallback: (section: Section) => void;
   closeCallback: () => void;
 }>();
 
 const {
-    /* State Variables */
-    title,
-    minUnits,
-    maxUnits,
+  /* State Variables */
+  title,
+  minUnits,
+  maxUnits,
 
-    /* Methods */
-    onAdd
+  /* Methods */
+  onAdd,
 } = useAddSectionDialogLogic(addCallback, closeCallback);
 </script>
 
 <template>
-  <Dialog
-      :visible="dialogVisible"
-      :modal="true"
-      pt:root:class="edit-dialog">
+  <Dialog :visible="dialogVisible" :modal="true" pt:root:class="edit-dialog">
     <template #container>
       <div class="dialog-header">
         <h1>Add Section</h1>
-        <Button icon="pi pi-times" class="dialog-close-button" @click="closeCallback()" />
+        <Button
+          icon="pi pi-times"
+          class="dialog-close-button"
+          @click="closeCallback()"
+        />
       </div>
 
       <div class="dialog-content">
-          <FloatLabel variant="in">
-              <InputText id="section-title" v-model="title"></InputText>
-              <label for="section-title">Title</label>
-          </FloatLabel>
+        <FloatLabel variant="in">
+          <InputText id="section-title" v-model="title"></InputText>
+          <label for="section-title">Title</label>
+        </FloatLabel>
 
-          <FloatLabel variant="in">
-              <InputText id="section-minUnits" v-model="minUnits"></InputText>
-              <label for="section-minUnits">Minimum Units</label>
-          </FloatLabel>
+        <FloatLabel variant="in">
+          <InputText id="section-minUnits" v-model="minUnits"></InputText>
+          <label for="section-minUnits">Minimum Units</label>
+        </FloatLabel>
 
-          <FloatLabel variant="in">
-              <InputText id="section-maxUnits" v-model="maxUnits"></InputText>
-              <label for="section-maxUnits">Maximum Units</label>
-          </FloatLabel>
+        <FloatLabel variant="in">
+          <InputText id="section-maxUnits" v-model="maxUnits"></InputText>
+          <label for="section-maxUnits">Maximum Units</label>
+        </FloatLabel>
       </div>
 
-      <Button label="Add"
-              class="p-button-primary"
-              @click="onAdd()"/>
+      <Button label="Add" class="p-button-primary" @click="onAdd()" />
     </template>
-
   </Dialog>
 </template>
 
@@ -86,7 +81,6 @@ const {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 
     .dialog-close-button {
       width: 4rem;
@@ -138,7 +132,6 @@ const {
     --p-select-focus-border-color: var(--primary-color);
 
     width: 100%;
-
   }
 
   .input-invalid {

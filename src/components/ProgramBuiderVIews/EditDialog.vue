@@ -1,15 +1,15 @@
 <script setup lang="ts">
 /* PrimeVue imports */
-import Button from 'primevue/button';
-import Dialog from 'primevue/dialog';
+import Button from "primevue/button";
+import Dialog from "primevue/dialog";
 
-let { dialogHeader, dialogVisible, dialogCloseCallback, dialogSubmitCallback } = defineProps<{
-  dialogHeader: string;
-  dialogVisible: boolean;
-  dialogSubmitCallback: () => void;
-  dialogCloseCallback: () => void;
-}>();
-
+let { dialogHeader, dialogVisible, dialogCloseCallback, dialogSubmitCallback } =
+  defineProps<{
+    dialogHeader: string;
+    dialogVisible: boolean;
+    dialogSubmitCallback: () => void;
+    dialogCloseCallback: () => void;
+  }>();
 </script>
 
 <template>
@@ -17,21 +17,27 @@ let { dialogHeader, dialogVisible, dialogCloseCallback, dialogSubmitCallback } =
     :header="dialogHeader"
     :visible="dialogVisible"
     :modal="true"
-    pt:root:class="edit-dialog">
+    pt:root:class="edit-dialog"
+  >
     <template #container>
       <div class="dialog-header">
         <h1>{{ dialogHeader }}</h1>
-        <Button icon="pi pi-times" class="dialog-close-button" @click="dialogCloseCallback" />
+        <Button
+          icon="pi pi-times"
+          class="dialog-close-button"
+          @click="dialogCloseCallback"
+        />
       </div>
       <div class="dialog-content">
         <slot />
       </div>
-      <Button label="Save"
-              class="p-button-primary"
-              @click="dialogSubmitCallback">
+      <Button
+        label="Save"
+        class="p-button-primary"
+        @click="dialogSubmitCallback"
+      >
       </Button>
     </template>
-
   </Dialog>
 </template>
 
@@ -56,7 +62,6 @@ let { dialogHeader, dialogVisible, dialogCloseCallback, dialogSubmitCallback } =
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 
     .dialog-close-button {
       width: 4rem;

@@ -1,17 +1,20 @@
 <script setup lang="ts">
+import draggable from "vuedraggable";
+
 /* PrimeVue imports */
 import InputText from "primevue/inputtext";
 import FloatLabel from "primevue/floatlabel";
 
 /* View imports */
-import AddButton from '../../ProgramBuiderVIews/AddButton.vue';
-import AddCourseEntryDialog from '../../ProgramBuiderVIews/AddDialogs/CourseEntries/AddCourseEntryDialog.vue';
-import EditButton from '../../ProgramBuiderVIews/EditButton.vue'
+import AddButton from "../../ProgramBuiderVIews/AddButton.vue";
+import AddCourseEntryDialog from "../../ProgramBuiderVIews/AddDialogs/CourseEntries/AddCourseEntryDialog.vue";
+import EditButton from "../../ProgramBuiderVIews/EditButton.vue";
 import EditDialog from "../../ProgramBuiderVIews/EditDialog.vue";
 
 /* Logic import */
-import { Section } from '../../../consumables/ProgramClasses/ProgramComponents/Section';
+import { Section } from "../../../consumables/ProgramClasses/ProgramComponents/Section";
 import { useSectionViewLogic } from "../../../consumables/ViewComponentLogic/ProgramViewLogic/ComponentViewLogic/SectionViewLogic.ts";
+import { CourseEntry } from "../../../consumables/ProgramClasses/CourseEntries/CourseEntry.ts";
 
 /* ----- Props ----- */
 const { model, deleteCallback } = defineProps<{
@@ -26,60 +29,64 @@ const {
   editDialogVisible,
   sectionDialog,
   addCourseEntryDialogVisible,
+  entries,
 
   // Methods
+  onReorder,
   courseEntryDeleteCallback,
   openEditDialog,
   onEditDialogClose,
   onEditDialogSave,
   onAddButtonClick,
-  closeAddCourseEntryDialog
-
+  closeAddCourseEntryDialog,
 } = useSectionViewLogic(model);
-
 </script>
 
 <template>
   <!-- Dialog for editing section -->
-  <EditDialog dialogHeader="Edit Program Details"
-              :dialogVisible="editDialogVisible"
-              :dialogCloseCallback="onEditDialogClose"
-              :dialogSubmitCallback="onEditDialogSave"
+  <EditDialog
+    dialogHeader="Edit Program Details"
+    :dialogVisible="editDialogVisible"
+    :dialogCloseCallback="onEditDialogClose"
+    :dialogSubmitCallback="onEditDialogSave"
   >
     <FloatLabel variant="in">
-      <InputText id="dialog-section-title"
-                 v-model="sectionDialog.title"/>
+      <InputText id="dialog-section-title" v-model="sectionDialog.title" />
       <label for="dialog-section-title">Category Title</label>
     </FloatLabel>
 
     <FloatLabel variant="in">
-      <InputText id="dialog-section-minUnits"
-                 v-model="sectionDialog.minUnits"/>
+      <InputText
+        id="dialog-section-minUnits"
+        v-model="sectionDialog.minUnits"
+        v-keyfilter="/^[0-9]*$/"
+      />
       <label for="dialog-section-minUnits">Category Minimum Units</label>
     </FloatLabel>
 
     <FloatLabel variant="in">
-      <InputText id="dialog-section-maxUnits"
-                 v-model="sectionDialog.maxUnits"/>
+      <InputText
+        id="dialog-section-maxUnits"
+        v-model="sectionDialog.maxUnits"
+        v-keyfilter="/^[0-9]*$/"
+      />
       <label for="dialog-section-maxUnits">Category Maximum Units</label>
     </FloatLabel>
-
   </EditDialog>
 
   <!-- Dialog for adding course entry -->
-  <AddCourseEntryDialog :dialogVisible="addCourseEntryDialogVisible"
-                        :addCallback="(courseEntry) => model.addCourseEntry(courseEntry)"
-                        :closeCallback="closeAddCourseEntryDialog"/>
+  <AddCourseEntryDialog
+    :dialogVisible="addCourseEntryDialogVisible"
+    :addCallback="(courseEntry) => model.addCourseEntry(courseEntry)"
+    :closeCallback="closeAddCourseEntryDialog"
+  />
 
   <!-- Program Section Display -->
   <div class="program-section">
-
     <div class="section-header">
-
       <h2 class="section-title">{{ model.getTitle() }}</h2>
 
       <div class="section-header-right">
-
         <span class="course-units">
           <span class="units-number">{{ model.getMinUnits() }}</span>
           <span class="units-label">min</span>
@@ -90,7 +97,7 @@ const {
           <span class="units-label">max</span>
         </span>
 
-        <span class="collapse-toggle"  @click="isCollapsed = !isCollapsed">
+        <span class="collapse-toggle" @click="isCollapsed = !isCollapsed">
           <i
             class="collapse-icon pi pi-chevron-up chevron-icon"
             :class="{ collapsed: isCollapsed }"
@@ -98,24 +105,37 @@ const {
         </span>
 
         <span class="edit-menu">
-          <EditButton :editCallback="openEditDialog" :deleteCallback="deleteCallback" />
+          <EditButton
+            :editCallback="openEditDialog"
+            :deleteCallback="deleteCallback"
+          />
         </span>
-
       </div>
     </div>
 
     <transition name="collapse">
-      <div v-show="!isCollapsed" class="collapse-content course-grid">
-        <component
-          v-for="courseEntry in model.getCourseEntries()"
-          :key="courseEntry.getTitle()"
-          :is="courseEntryMap[courseEntry.getType()]"
-          :model="courseEntry"
-          :deleteCallback="() => courseEntryDeleteCallback(courseEntry)"
-        />
+      <div v-show="!isCollapsed" class="collapse-content">
+        <draggable
+          v-model="entries"
+          :item-key="(entry: CourseEntry) => entry.getTitle()"
+          class="course-grid"
+          @end="onReorder"
+          :ghost-class="'ghost-course'"
+          :animation="300"
+        >
+          <template #item="{ element: courseEntry, attributes }">
+            <div v-bind="attributes">
+              <component
+                :is="courseEntryMap[courseEntry.getType()]"
+                :model="courseEntry"
+                :deleteCallback="() => courseEntryDeleteCallback(courseEntry)"
+              />
+            </div>
+          </template>
+        </draggable>
 
         <div class="add-course">
-          <AddButton :text="'Add Course'" :clickCallback="onAddButtonClick"/>
+          <AddButton :text="'Add Course'" :clickCallback="onAddButtonClick" />
         </div>
       </div>
     </transition>
@@ -123,11 +143,17 @@ const {
 </template>
 
 <style scoped>
+.ghost-course {
+  visibility: hidden;
+}
+
 .program-section {
   border: 1px solid var(--primary-color);
   border-radius: 1.5rem;
   padding: 1rem;
   margin: 1rem 0;
+
+  content-visibility: auto;
 
   background-color: var(--primary-bg-color);
 
@@ -189,7 +215,7 @@ const {
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        
+
         border-radius: 0.75rem;
         color: var(--primary-text-color);
 
@@ -220,13 +246,21 @@ const {
   overflow: hidden;
   padding-top: 1rem;
 }
-.collapse-enter-active, .collapse-leave-active {
-  transition: max-height 0.3s ease-in-out, opacity var(--colour-transition-time) ease-in-out;
+
+.collapse-enter-active,
+.collapse-leave-active {
+  transition:
+    max-height 0.3s ease-in-out,
+    opacity var(--colour-transition-time) ease-in-out;
 }
-.collapse-enter-from, .collapse-leave-to {
+
+.collapse-enter-from,
+.collapse-leave-to {
   max-height: 0;
 }
-.collapse-enter-to, .collapse-leave-from {
+
+.collapse-enter-to,
+.collapse-leave-from {
   max-height: 1000px;
 }
 
@@ -236,6 +270,7 @@ const {
   transform-origin: center;
   transition: transform 0.3s ease-in-out;
 }
+
 .chevron-icon.collapsed {
   transform: rotate(180deg);
 }

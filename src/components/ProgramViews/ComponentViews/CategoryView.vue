@@ -1,18 +1,21 @@
 <script setup lang="ts">
+import draggable from "vuedraggable";
+
 /* PrimeVue imports */
 import InputText from "primevue/inputtext";
 import FloatLabel from "primevue/floatlabel";
 
 /* View imports */
 import SectionView from "./SectionView.vue";
-import AddButton from '../../ProgramBuiderVIews/AddButton.vue';
-import EditButton from '../../ProgramBuiderVIews/EditButton.vue'
+import AddButton from "../../ProgramBuiderVIews/AddButton.vue";
+import EditButton from "../../ProgramBuiderVIews/EditButton.vue";
 import EditDialog from "../../ProgramBuiderVIews/EditDialog.vue";
+import AddSectionDialog from "../../ProgramBuiderVIews/AddDialogs/AddSectionDialog.vue";
 
 /* Logic import */
-import { Category } from '../../../consumables/ProgramClasses/ProgramComponents/Category';
+import { Category } from "../../../consumables/ProgramClasses/ProgramComponents/Category";
 import { useCategoryViewLogic } from "../../../consumables/ViewComponentLogic/ProgramViewLogic/ComponentViewLogic/CategoryViewLogic.ts";
-import AddSectionDialog from "../../ProgramBuiderVIews/AddDialogs/AddSectionDialog.vue";
+import { Section } from "../../../consumables/ProgramClasses/ProgramComponents/Section.ts";
 
 /* ----- Props ----- */
 const { model, deleteCallback } = defineProps<{
@@ -26,56 +29,66 @@ const {
   editDialogVisible,
   categoryDialog,
   addSectionDialogVisible,
+  sections,
 
   // Methods
+  onReorder,
   sectionDeleteCallback,
   openEditDialog,
   onDialogClose,
   onDialogSave,
   onAddButtonClick,
-  closeAddSectionDialog
+  closeAddSectionDialog,
 } = useCategoryViewLogic(model);
 </script>
 
 <template>
-    <!-- Dialog for editing section -->
-  <EditDialog dialogHeader="Edit Program Details"
-              :dialogVisible="editDialogVisible"
-              :dialogCloseCallback="onDialogClose"
-              :dialogSubmitCallback="onDialogSave"
+  <!-- Dialog for editing section -->
+  <EditDialog
+    dialogHeader="Edit Program Details"
+    :dialogVisible="editDialogVisible"
+    :dialogCloseCallback="onDialogClose"
+    :dialogSubmitCallback="onDialogSave"
   >
     <FloatLabel variant="in">
-      <InputText id="dialog-category-title"
-                 v-model="categoryDialog.title"/>
+      <InputText id="dialog-category-title" v-model="categoryDialog.title" />
       <label for="dialog-category-title">Category Title</label>
     </FloatLabel>
 
     <FloatLabel variant="in">
-      <InputText id="dialog-category-minUnits"
-                 v-model="categoryDialog.minUnits"/>
+      <InputText
+        id="dialog-category-minUnits"
+        v-model="categoryDialog.minUnits"
+        v-keyfilter="/^[0-9]*$/"
+      />
       <label for="dialog-category-minUnits">Category Minimum Units</label>
     </FloatLabel>
 
     <FloatLabel variant="in">
-      <InputText id="dialog-category-maxUnits"
-                 v-model="categoryDialog.maxUnits"/>
+      <InputText
+        id="dialog-category-maxUnits"
+        v-model="categoryDialog.maxUnits"
+        v-keyfilter="/^[0-9]*$/"
+      />
       <label for="dialog-category-maxUnits">Category Maximum Units</label>
     </FloatLabel>
-
   </EditDialog>
 
-    <AddSectionDialog   :dialogVisible="addSectionDialogVisible"
-                        :addCallback="(section) => {model.addSection(section)}"
-                        :closeCallback="closeAddSectionDialog"/>
+  <AddSectionDialog
+    :dialogVisible="addSectionDialogVisible"
+    :addCallback="
+      (section) => {
+        model.addSection(section);
+      }
+    "
+    :closeCallback="closeAddSectionDialog"
+  />
 
   <div class="program-section">
-
     <div class="section-header">
-
       <h2 class="section-title">{{ model.getTitle() }}</h2>
 
       <div class="section-header-right">
-
         <span class="course-units">
           <span class="units-number">{{ model.getMinUnits() }}</span>
           <span class="units-label">min</span>
@@ -89,28 +102,41 @@ const {
         <!-- collapse toggle styled as badge -->
         <span class="collapse-toggle" @click="isCollapsed = !isCollapsed">
           <i
-              class="collapse-icon pi pi-chevron-up chevron-icon"
-              :class="{ collapsed: isCollapsed }"
+            class="collapse-icon pi pi-chevron-up chevron-icon"
+            :class="{ collapsed: isCollapsed }"
           />
         </span>
 
         <span class="edit-menu">
-          <EditButton :editCallback="openEditDialog" :deleteCallback="deleteCallback" />
+          <EditButton
+            :editCallback="openEditDialog"
+            :deleteCallback="deleteCallback"
+          />
         </span>
-
       </div>
     </div>
 
     <transition name="collapse">
-      <div v-show="!isCollapsed" class="collapse-content course-grid">
-        <SectionView
-          v-for="section in model.getSections()"
-          :key="section.getId()"
-          :model="section"
-          :deleteCallback="() => sectionDeleteCallback(section.getId())"
-          />
+      <div v-show="!isCollapsed" class="collapse-content">
+        <draggable
+          v-model="sections"
+          :item-key="(section: Section) => section.getId()"
+          class="course-grid"
+          @end="onReorder"
+          :ghost-class="'ghost-section'"
+          :animation="300"
+        >
+          <template #item="{ element: section, attributes }">
+            <div v-bind="attributes ?? {}">
+              <SectionView
+                :model="section"
+                :deleteCallback="() => sectionDeleteCallback(section.getId())"
+              />
+            </div>
+          </template>
+        </draggable>
         <div class="add-course">
-          <AddButton :clickCallback="onAddButtonClick" :text="'Add Section'"/>
+          <AddButton :clickCallback="onAddButtonClick" :text="'Add Section'" />
         </div>
       </div>
     </transition>
@@ -123,6 +149,8 @@ const {
   border-radius: 1.5rem;
   padding: 1rem;
   margin: 1rem 0;
+
+  content-visibility: auto;
 
   background-color: var(--primary-bg-color);
 
@@ -211,6 +239,10 @@ const {
   }
 }
 
+.ghost-section {
+  opacity: 0;
+}
+
 .course-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -221,13 +253,21 @@ const {
   overflow: hidden;
   padding-top: 1rem;
 }
-.collapse-enter-active, .collapse-leave-active {
-  transition: max-height 0.3s ease-in-out, opacity var(--colour-transition-time) ease-in-out;
+
+.collapse-enter-active,
+.collapse-leave-active {
+  transition:
+    max-height 0.3s ease-in-out,
+    opacity var(--colour-transition-time) ease-in-out;
 }
-.collapse-enter-from, .collapse-leave-to {
+
+.collapse-enter-from,
+.collapse-leave-to {
   max-height: 0;
 }
-.collapse-enter-to, .collapse-leave-from {
+
+.collapse-enter-to,
+.collapse-leave-from {
   max-height: 1000px;
 }
 
@@ -237,6 +277,7 @@ const {
   transform-origin: center;
   transition: transform 0.3s ease-in-out;
 }
+
 .chevron-icon.collapsed {
   transform: rotate(180deg);
 }

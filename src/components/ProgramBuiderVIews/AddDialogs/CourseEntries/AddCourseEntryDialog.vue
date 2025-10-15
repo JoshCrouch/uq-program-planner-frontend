@@ -1,17 +1,16 @@
 <script setup lang="ts">
-
 /* PrimeVue imports */
-import Button from 'primevue/button';
-import Dialog from 'primevue/dialog';
-import Select from 'primevue/select';
+import Button from "primevue/button";
+import Dialog from "primevue/dialog";
+import Select from "primevue/select";
 import FloatLabel from "primevue/floatlabel";
 
 /* Logic imports */
 import { useAddCourseEntryDialogLogic } from "../../../../consumables/ViewComponentLogic/AddDialogLogic/AddCourseEntryDialogLogic";
-import type {CourseEntry} from "../../../../consumables/ProgramClasses/CourseEntries/CourseEntry.ts";
+import type { CourseEntry } from "../../../../consumables/ProgramClasses/CourseEntries/CourseEntry.ts";
 
 let { dialogVisible, addCallback, closeCallback } = defineProps<{
-  dialogVisible: boolean,
+  dialogVisible: boolean;
   addCallback: (courseEntry: CourseEntry) => void;
   closeCallback: () => void;
 }>();
@@ -24,44 +23,40 @@ const {
   activeComponentRef,
 
   /* Methods */
-  onAdd
+  onAdd,
 } = useAddCourseEntryDialogLogic(dialogVisible, addCallback, closeCallback);
-
 </script>
 
 <template>
-  <Dialog
-      :visible="dialogVisible"
-      :modal="true"
-      pt:root:class="edit-dialog">
+  <Dialog :visible="dialogVisible" :modal="true" pt:root:class="edit-dialog">
     <template #container>
       <div class="dialog-header">
         <h1>Add Course Entry</h1>
-        <Button icon="pi pi-times" class="dialog-close-button" @click="closeCallback()" />
+        <Button
+          icon="pi pi-times"
+          class="dialog-close-button"
+          @click="closeCallback()"
+        />
       </div>
 
       <div class="dialog-content">
         <FloatLabel variant="in">
-          <Select id="course-entry-select"
-                  v-model="selectedCourseEntryType"
-                  :options="options"
-                  option-label="name"
-                  option-value="value"
-                  class="course-entry-select"/>
+          <Select
+            id="course-entry-select"
+            v-model="selectedCourseEntryType"
+            :options="options"
+            option-label="name"
+            option-value="value"
+            class="course-entry-select"
+          />
           <label for="course-entry-select">Course Entry Type</label>
         </FloatLabel>
 
-        <component
-            :is="activeComponent"
-            ref="activeComponentRef"
-        />
+        <component :is="activeComponent" ref="activeComponentRef" />
       </div>
 
-      <Button label="Add"
-              class="p-button-primary"
-              @click="onAdd()"/>
+      <Button label="Add" class="p-button-primary" @click="onAdd()" />
     </template>
-
   </Dialog>
 </template>
 
@@ -86,7 +81,6 @@ const {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 
     .dialog-close-button {
       width: 4rem;
@@ -138,7 +132,6 @@ const {
     --p-select-focus-border-color: var(--primary-color);
 
     width: 100%;
-
   }
 
   .input-invalid {

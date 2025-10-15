@@ -4,20 +4,16 @@ import { ProgramElective } from "../../../consumables/ProgramClasses/ProgramComp
 // Props
 const { model, deleteCallback } = defineProps<{
   model: ProgramElective;
-  deleteCallback: () => void
+  deleteCallback: () => void;
 }>();
-
 </script>
 
 <template>
   <div class="program-section">
-
     <div class="section-header">
-
       <h2 class="section-title">{{ model.getTitle() }}</h2>
 
       <div class="section-header-right">
-
         <span class="course-units">
           <span class="units-number">{{ model.getMinUnits() }}</span>
           <span class="units-label">min</span>
@@ -29,14 +25,15 @@ const { model, deleteCallback } = defineProps<{
         </span>
 
         <span class="delete-button" @click="deleteCallback">
-          <i class="delete-icon pi pi-trash"/>
+          <i class="delete-icon pi pi-trash" />
         </span>
-
       </div>
     </div>
 
     <div class="program-elective-text">
-      <p>Choose any course from any option (major, minor, etc) of this program.</p>
+      <p>
+        Choose any course from any option (major, minor, etc) of this program.
+      </p>
     </div>
   </div>
 </template>
@@ -47,6 +44,8 @@ const { model, deleteCallback } = defineProps<{
   border-radius: 1.5rem;
   padding: 1rem;
   margin: 1rem 0;
+
+  content-visibility: auto;
 
   background-color: var(--primary-bg-color);
 
@@ -118,7 +117,6 @@ const { model, deleteCallback } = defineProps<{
           background-color: var(--surface-light-color-alt);
         }
       }
-
     }
   }
 

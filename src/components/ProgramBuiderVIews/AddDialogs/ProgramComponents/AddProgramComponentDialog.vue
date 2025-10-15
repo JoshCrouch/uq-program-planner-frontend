@@ -1,17 +1,22 @@
 <script setup lang="ts">
-
 /* PrimeVue imports */
-import Button from 'primevue/button';
-import Dialog from 'primevue/dialog';
-import Select from 'primevue/select';
+import Button from "primevue/button";
+import Dialog from "primevue/dialog";
+import Select from "primevue/select";
 import FloatLabel from "primevue/floatlabel";
 
 /* Logic imports */
-import { useAddProgramComponentDialogLogic} from "../../../../consumables/ViewComponentLogic/AddDialogLogic/AddProgramComponentDialogLogic.ts";
+import { useAddProgramComponentDialogLogic } from "../../../../consumables/ViewComponentLogic/AddDialogLogic/AddProgramComponentDialogLogic.ts";
 import { ProgramComponent } from "../../../../consumables/ProgramClasses/ProgramComponents/ProgramComponent.ts";
 
-let { dialogVisible, addCallback, closeCallback, hasProgramElective, hasGeneralElective } = defineProps<{
-  dialogVisible: boolean,
+let {
+  dialogVisible,
+  addCallback,
+  closeCallback,
+  hasProgramElective,
+  hasGeneralElective,
+} = defineProps<{
+  dialogVisible: boolean;
   addCallback: (programComponent: ProgramComponent) => void;
   closeCallback: () => void;
   hasProgramElective: () => boolean;
@@ -26,44 +31,46 @@ const {
   activeComponentRef,
 
   /* Methods */
-  onAdd
-} = useAddProgramComponentDialogLogic(dialogVisible, addCallback, closeCallback, hasProgramElective, hasGeneralElective);
-
+  onAdd,
+} = useAddProgramComponentDialogLogic(
+  dialogVisible,
+  addCallback,
+  closeCallback,
+  hasProgramElective,
+  hasGeneralElective,
+);
 </script>
 
 <template>
-  <Dialog
-      :visible="dialogVisible"
-      :modal="true"
-      pt:root:class="edit-dialog">
+  <Dialog :visible="dialogVisible" :modal="true" pt:root:class="edit-dialog">
     <template #container>
       <div class="dialog-header">
         <h1>Add Program Component</h1>
-        <Button icon="pi pi-times" class="dialog-close-button" @click="closeCallback()" />
+        <Button
+          icon="pi pi-times"
+          class="dialog-close-button"
+          @click="closeCallback()"
+        />
       </div>
 
       <div class="dialog-content">
         <FloatLabel variant="in">
-          <Select id="course-entry-select"
-                  v-model="selectedProgramComponentType"
-                  :options="options"
-                  option-label="name"
-                  option-value="value"
-                  class="course-entry-select"/>
+          <Select
+            id="course-entry-select"
+            v-model="selectedProgramComponentType"
+            :options="options"
+            option-label="name"
+            option-value="value"
+            class="course-entry-select"
+          />
           <label for="course-entry-select">Program Component Type</label>
         </FloatLabel>
 
-        <component
-            :is="activeComponent"
-            ref="activeComponentRef"
-        />
+        <component :is="activeComponent" ref="activeComponentRef" />
       </div>
 
-      <Button label="Add"
-              class="p-button-primary"
-              @click="onAdd()"/>
+      <Button label="Add" class="p-button-primary" @click="onAdd()" />
     </template>
-
   </Dialog>
 </template>
 
@@ -88,7 +95,6 @@ const {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 
     .dialog-close-button {
       width: 4rem;
@@ -140,7 +146,6 @@ const {
     --p-select-focus-border-color: var(--primary-color);
 
     width: 100%;
-
   }
 
   .input-invalid {

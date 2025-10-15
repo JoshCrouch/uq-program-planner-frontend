@@ -4,57 +4,64 @@ import InputText from "primevue/inputtext";
 import FloatLabel from "primevue/floatlabel";
 
 /* View imports */
-import EditButton from '../../ProgramBuiderVIews/EditButton.vue';
+import EditButton from "../../ProgramBuiderVIews/EditButton.vue";
 import EditDialog from "../../ProgramBuiderVIews/EditDialog.vue";
 
 /* Logic imports */
-import { Course } from '../../../consumables/ProgramClasses/./CourseEntries/Course.ts';
+import { Course } from "../../../consumables/ProgramClasses/./CourseEntries/Course.ts";
 import { useCourseViewLogic } from "../../../consumables/ViewComponentLogic/ProgramViewLogic/CourseEntryViewLogic/CourseViewLogic.ts";
 
 const { model, deleteCallback } = defineProps<{
-    model: Course;
-    deleteCallback: () => void;
+  model: Course;
+  deleteCallback: () => void;
 }>();
 
 const {
-    editDialogVisible,
-    courseCodeDialog,
-    openEditDialog,
-    onDialogClose,
-    onDialogSave
+  editDialogVisible,
+  courseCodeDialog,
+  openEditDialog,
+  onDialogClose,
+  onDialogSave,
 } = useCourseViewLogic(model);
-
 </script>
 
 <template>
-  <EditDialog dialogHeader="Edit Program Details"
-              :dialogVisible="editDialogVisible"
-              :dialogCloseCallback="onDialogClose"
-              :dialogSubmitCallback="onDialogSave"
+  <EditDialog
+    dialogHeader="Edit Program Details"
+    :dialogVisible="editDialogVisible"
+    :dialogCloseCallback="onDialogClose"
+    :dialogSubmitCallback="onDialogSave"
   >
     <FloatLabel variant="in">
-      <InputText id="dialog-category-title"
-                 v-model="courseCodeDialog"/>
+      <InputText
+        id="dialog-category-title"
+        v-model="courseCodeDialog"
+        v-keyfilter="/^[A-Za-z0-9]*$/"
+      />
       <label for="dialog-category-title">CourseCode</label>
     </FloatLabel>
-
   </EditDialog>
 
-  <div class="course-card" :class="{ 'course-card-error': (model.getErrorMessage() !== null )}">
-
-      <div class="course-info">
-          <span class="course-title">{{ model.getTitle() }}</span>
-          <span class="course-code">{{ model.getCode() }}</span>
-      </div>
-      <div class="course-card-right">
-          <span class="course-units" v-if="!model.getErrorMessage()">
-              <span class="units-number">{{ model.getUnits() }}</span>
-              <span class="units-label">units</span>
-          </span>
-          <span class="edit-menu">
-              <EditButton :editCallback="openEditDialog" :deleteCallback="deleteCallback" />
-          </span>
-      </div>
+  <div
+    class="course-card"
+    :class="{ 'course-card-error': model.getErrorMessage() !== null }"
+  >
+    <div class="course-info">
+      <span class="course-title">{{ model.getTitle() }}</span>
+      <span class="course-code">{{ model.getCode() }}</span>
+    </div>
+    <div class="course-card-right">
+      <span class="course-units" v-if="!model.getErrorMessage()">
+        <span class="units-number">{{ model.getUnits() }}</span>
+        <span class="units-label">units</span>
+      </span>
+      <span class="edit-menu">
+        <EditButton
+          :editCallback="openEditDialog"
+          :deleteCallback="deleteCallback"
+        />
+      </span>
+    </div>
   </div>
 </template>
 
@@ -74,11 +81,15 @@ const {
   border-radius: 1rem;
   border: 1px solid var(--primary-color);
 
+  content-visibility: auto;
+
   transition:
-  transform var(--move-on-hover-transition-time) ease-in-out,
-  background-color var(--colour-transition-time) ease-in-out,
-  color var(--colour-transition-time) ease-in-out,
-  box-shadow var(--move-on-hover-transition-time) ease-in-out;
+    transform var(--move-on-hover-transition-time) ease-in-out,
+    background-color var(--colour-transition-time) ease-in-out,
+    color var(--colour-transition-time) ease-in-out,
+    box-shadow var(--move-on-hover-transition-time) ease-in-out;
+
+  cursor: default;
 
   &:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -117,19 +128,19 @@ const {
     }
 
     .course-units {
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.75rem;
-    white-space: nowrap;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 4rem;
-    height: 4rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.75rem;
+      white-space: nowrap;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 4rem;
+      height: 4rem;
 
-    cursor: default;
+      cursor: default;
 
-    background-color: var(--primary-color);
-    color: white;
+      background-color: var(--primary-color);
+      color: white;
 
       &:hover {
         background-color: var(--primary-color-hover);

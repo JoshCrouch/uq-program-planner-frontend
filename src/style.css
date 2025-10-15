@@ -1,33 +1,37 @@
 /* UQ ProgramView Planner - Global Styles */
 :root {
-  --uq-primary-color: #51247A;    /* UQ purple */
+  --uq-primary-color: #51247a; /* UQ purple */
 
   /* Dark mode colors */
-  --dark-primary-text-color: #E0E0E0;  /* Light text for dark mode */
-  --dark-secondary-text-color: #A0A0A0;/* Secondary text */
+  --dark-primary-text-color: #e0e0e0; /* Light text for dark mode */
+  --dark-secondary-text-color: #a0a0a0; /* Secondary text */
 
-  --dark-primary-bg-color: #121212;    /* Dark background */
-  --dark-surface-color: #1E1E1E;       /* Surfaces and cards */
+  --dark-primary-bg-color: #121212; /* Dark background */
+  --dark-surface-color: #1e1e1e; /* Surfaces and cards */
   --dark-surface-light-color: #262626; /* Lighter surfaces */
-  --dark-surface-light-color-alt: #2E2E2E; /* Even lighter for deepest nesting */
+  --dark-surface-light-color-alt: #2e2e2e; /* Even lighter for deepest nesting */
 
   /* Light mode colors */
   --light-primary-text-color: #212121; /* Dark text for light mode */
   --light-secondary-text-color: #757575; /* Secondary text */
-  
-  --light-primary-bg-color: #FFFFFF;   /* Light background */
-  --light-surface-color: #F5F5F5;      /* Surfaces */
-  --light-surface-light-color: #EEEEEE; /* Lighter surfaces */
-  --light-surface-light-color-alt: #E0E0E0; /* Even lighter for deepest nesting */
 
-  --error-color: #dc3545;         /* Error indication */
-  --error-dark-color: #b02a37;    /* Darker error color for contrast */
-  --error-light-color: #FFCDD2;   /* Light error background */
+  --light-primary-bg-color: #ffffff; /* Light background */
+  --light-surface-color: #f5f5f5; /* Surfaces */
+  --light-surface-light-color: #eeeeee; /* Lighter surfaces */
+  --light-surface-light-color-alt: #e0e0e0; /* Even lighter for deepest nesting */
+
+  --error-color: #dc3545; /* Error indication */
+  --error-dark-color: #b02a37; /* Darker error color for contrast */
+  --error-light-color: #ffcdd2; /* Light error background */
 
   /* Aliases for components */
   --primary-color: var(--uq-primary-color);
-  --primary-color-alt: color-mix(in srgb, var(--surface-light-color-alt) 50%, var(--primary-color) 50%);
-  --primary-color-hover: #6A1B9A;
+  --primary-color-alt: color-mix(
+    in srgb,
+    var(--surface-light-color-alt) 50%,
+    var(--primary-color) 50%
+  );
+  --primary-color-hover: #6a1b9a;
   --text-color: var(--primary-text-color);
 
   --biggest-font-size: 2rem; /* Largest font size for headings */
@@ -78,7 +82,7 @@
   --opposite-surface-color: var(--light-surface-color);
   --opposite-surface-light-color: var(--light-surface-light-color);
   --opposite-surface-light-color-alt: var(--light-surface-light-color-alt);
-} 
+}
 
 body {
   margin: 0;
@@ -89,14 +93,20 @@ body {
   color: var(--primary-text-color);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   --colour-transition-time: 0.3s; /* Default transition time for colors */
   /* Define --color-transitions */
-  --color-transitions: background-color var(--colour-transition-time) ease-in-out, color var(--colour-transition-time) ease-in-out;
+  --color-transitions:
+    background-color var(--colour-transition-time) ease-in-out,
+    color var(--colour-transition-time) ease-in-out;
   transition: var(--color-transitions);
 
   /* PrimeVue Menu Component Variables */
-  --p-menu-background: var(--primary-bg-color); /* Default background for PrimeVue menu overlay */
+  --p-menu-background: var(
+    --primary-bg-color
+  ); /* Default background for PrimeVue menu overlay */
   --p-menu-border-color: var(--primary-color);
   --p-menu-item-color: var(--primary-text-color);
   --p-menu-item-focus-background: var(--surface-light-color-alt);
@@ -117,11 +127,65 @@ body {
   --p-select-option-focus-color: var(--primary-text-color);
   --p-select-option-selected-color: white;
   --p-select-option-selected-focus-color: white;
-
 }
 
 .p-menu-overlay {
   background: white;
+}
+
+/* App-wide theming for PrimeVue buttons */
+.p-button {
+  width: 10rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  align-self: center;
+
+  --p-button-primary-background: var(--primary-bg-color);
+  --p-button-primary-hover-background: var(--surface-light-color-alt);
+  --p-button-primary-active-background: var(--surface-light-color-alt);
+
+  --p-button-primary-color: var(--primary-text-color);
+  --p-button-primary-hover-color: var(--primary-color);
+  --p-button-primary-active-color: var(--secondary-text-color);
+
+  --p-button-primary-border-color: var(--primary-color);
+  --p-button-primary-hover-border-color: var(--primary-color);
+  --p-button-primary-active-border-color: var(--primary-color);
+
+  --p-button-primary-focus-ring-color: var(--primary-color);
+  --p-button-focus-ring-style: dashed;
+
+  transition:
+    background-color var(--colour-transition-time) ease-in-out,
+    color var(--colour-transition-time) ease-in-out,
+    border-color var(--colour-transition-time) ease-in-out;
+}
+
+/* App-wide theming for PrimeVue input text */
+.p-inputtext {
+  width: 100%;
+  height: 3rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+
+  background-color: var(--surface-color);
+  color: var(--text-color);
+
+  border: 1px solid var(--primary-color);
+
+  &:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0.25rem rgba(0, 123, 255, 0.25);
+  }
+
+  --p-inputtext-focus-border-color: var(--primary-color);
+}
+
+.p-floatlabel {
+  color: var(--text-color);
+
+  --p-floatlabel-focus-color: var(--primary-color);
+  --p-floatlabel-color: var(--secondary-text-color);
 }
 
 /*

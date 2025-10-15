@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import FloatLabel from 'primevue/floatlabel';
-import InputText from 'primevue/inputtext';
+import FloatLabel from "primevue/floatlabel";
+import InputText from "primevue/inputtext";
 import { useToast } from "primevue/usetoast";
 import { Section } from "../../../../consumables/ProgramClasses/ProgramComponents/Section.ts";
 
@@ -10,49 +10,49 @@ const toast = useToast();
 function getProgramComponent(): Section {
   if (!title.value) {
     toast.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: 'Title must be provided.',
-      life: 3000
+      severity: "error",
+      summary: "Error",
+      detail: "Title must be provided.",
+      life: 3000,
     });
-    throw new Error('Title must be provided.');
+    throw new Error("Title must be provided.");
   }
 
   if (!minUnits.value) {
     toast.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: 'Minimum units must be provided.',
-      life: 3000
+      severity: "error",
+      summary: "Error",
+      detail: "Minimum units must be provided.",
+      life: 3000,
     });
-    throw new Error('Minimum units must be provided.');
+    throw new Error("Minimum units must be provided.");
   }
 
   if (!maxUnits.value) {
     toast.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: 'Maximum units must be provided.',
-      life: 3000
+      severity: "error",
+      summary: "Error",
+      detail: "Maximum units must be provided.",
+      life: 3000,
     });
-    throw new Error('Maximum units must be provided.');
+    throw new Error("Maximum units must be provided.");
   }
 
   return new Section(
-      title.value.replace(/\s+/g, '-'),
-      title.value,
-      parseInt(minUnits.value),
-      parseInt(maxUnits.value)
-  )
+    title.value.replace(/\s+/g, "-"),
+    title.value,
+    parseInt(minUnits.value),
+    parseInt(maxUnits.value),
+  );
 }
 
 defineExpose({
   getProgramComponent,
-})
+});
 
-const title = ref<string>('');
-const minUnits = ref<string>('');
-const maxUnits = ref<string>('');
+const title = ref<string>("");
+const minUnits = ref<string>("");
+const maxUnits = ref<string>("");
 </script>
 
 <template>
@@ -62,12 +62,22 @@ const maxUnits = ref<string>('');
   </FloatLabel>
 
   <FloatLabel variant="in">
-    <InputText id="section-minUnits" v-model="minUnits"></InputText>
+    <InputText
+      id="section-minUnits"
+      v-model="minUnits"
+      v-keyfilter="/^[0-9]*$/"
+    >
+    </InputText>
     <label for="section-minUnits">Minimum Units</label>
   </FloatLabel>
 
   <FloatLabel variant="in">
-    <InputText id="section-maxUnits" v-model="maxUnits"></InputText>
+    <InputText
+      id="section-maxUnits"
+      v-model="maxUnits"
+      v-keyfilter="/^[0-9]*$/"
+    >
+    </InputText>
     <label for="section-maxUnits">Maximum Units</label>
   </FloatLabel>
 </template>

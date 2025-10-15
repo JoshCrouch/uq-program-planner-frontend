@@ -1,34 +1,34 @@
 {
-  "name" : "Bachelor of Engineering (Honours) / Master of Engineering in Electrical and Computer Engineering",
-  "code" : "ELECEX2350",
-  "year" : 2023,
+  "name": "Bachelor of Engineering (Honours) / Master of Engineering in Electrical and Computer Engineering",
+  "code": "ELECEX2350",
+  "year": 2023,
   "units": 80,
-  "components" : [
+  "components": [
     {
-      "id" : "BE(Hons)/MECoreCourses",
-      "type" : "section",
-      "title" : "BE(Hons)/ME Core Courses",
-      "minUnits" : 8,
-      "maxUnits" : 8,
-      "courseEntries" : [
+      "id": "BE(Hons)/MECoreCourses",
+      "type": "section",
+      "title": "BE(Hons)/ME Core Courses",
+      "minUnits": 8,
+      "maxUnits": 8,
+      "courseEntries": [
         {
-          "type" : "singular",
-          "code" : "ENGG1100"
+          "type": "singular",
+          "code": "ENGG1100"
         },
         {
-          "type" : "option",
-          "optionOne" : "MATH1051",
-          "optionTwo" : "MATH1071"
+          "type": "option",
+          "optionOne": "MATH1051",
+          "optionTwo": "MATH1071"
         },
         {
-          "type" : "option",
-          "optionOne" : "MATH1052",
-          "optionTwo" : "MATH1072"
+          "type": "option",
+          "optionOne": "MATH1052",
+          "optionTwo": "MATH1072"
         },
         {
-          "type" : "option",
-          "optionOne" : "ENGG1001",
-          "optionTwo" : "CSSE1001"
+          "type": "option",
+          "optionOne": "ENGG1001",
+          "optionTwo": "CSSE1001"
         }
       ]
     },
@@ -120,7 +120,6 @@
             { "type": "singular", "code": "INFS1200" },
             { "type": "singular", "code": "INFS2200" },
             { "type": "singular", "code": "METR3100" }
-
           ]
         },
         {
